@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/crevionads_logo.png";
@@ -11,15 +11,41 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  e.preventDefault();
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-secondary/10">
+    <motion.nav
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/30 backdrop-blur-2xl shadow-[0_4px_30px_rgba(53,37,98,0.25)] border-b border-secondary/15"
+          : "bg-transparent backdrop-blur-sm"
+      }`}
+      style={{
+        WebkitBackdropFilter: scrolled ? "blur(40px) saturate(180%)" : "blur(8px)",
+        backdropFilter: scrolled ? "blur(40px) saturate(180%)" : "blur(8px)",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="flex-shrink-0">
-            <img src={logo} alt="CrevionAds" className="h-8 md:h-10 w-auto" />
+        <div className="flex items-center justify-between h-18 md:h-22">
+          <a href="#home" onClick={(e) => smoothScroll(e, "#home")} className="flex-shrink-0">
+            <img src={logo} alt="CrevionAds" className="h-12 md:h-14 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -27,12 +53,17 @@ export const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                onClick={(e) => smoothScroll(e, link.href)}
+                className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link.label}
               </a>
             ))}
-            <a href="#contact" className="btn-primary text-sm !px-6 !py-2.5">
+            <a
+              href="#contact"
+              onClick={(e) => smoothScroll(e, "#contact")}
+              className="btn-primary text-sm !px-6 !py-2.5"
+            >
               Contact Us
             </a>
           </div>
@@ -53,26 +84,32 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-secondary/10 overflow-hidden"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden bg-background/20 backdrop-blur-2xl border-b border-secondary/10 overflow-hidden"
+            style={{ WebkitBackdropFilter: "blur(40px) saturate(180%)" }}
           >
             <div className="px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                  onClick={(e) => { smoothScroll(e, link.href); setMobileOpen(false); }}
+                  className="text-base font-medium text-muted-foreground hover:text-accent transition-colors py-2"
                 >
                   {link.label}
                 </a>
               ))}
-              <a href="#contact" onClick={() => setMobileOpen(false)} className="btn-primary text-center text-sm !py-3 mt-2">
+              <a
+                href="#contact"
+                onClick={(e) => { smoothScroll(e, "#contact"); setMobileOpen(false); }}
+                className="btn-primary text-center text-sm !py-3 mt-2"
+              >
                 Contact Us
               </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
