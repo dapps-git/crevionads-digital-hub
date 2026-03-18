@@ -5,18 +5,15 @@ import {
 } from "lucide-react";
 
 const services = [
-  { title: "Email & WhatsApp Marketing", desc: "Reach customers directly through personalized messaging campaigns.", icon: Megaphone },
-  { title: "Post Production & Social Media Ads", desc: "Eye-catching creatives and targeted ad campaigns that convert.", icon: Video },
-  { title: "Content Marketing", desc: "Strategic content that builds authority and drives organic growth.", icon: Layout },
-  { title: "E-commerce Marketing", desc: "Full-funnel strategies to scale your online store revenue.", icon: ShoppingCart },
-  { title: "Social Media Marketing (SMM)", desc: "Build engaged communities across all social platforms.", icon: Globe },
-  { title: "Search Engine Optimization (SEO)", desc: "Dominate search rankings with data-driven SEO strategies.", icon: Database },
   { title: "AI-Powered App Development", desc: "Custom mobile solutions driven by artificial intelligence.", icon: Smartphone },
   { title: "AI-Enhanced Web Development", desc: "Modern websites built with cutting-edge AI technology.", icon: Globe },
   { title: "Smart Branding Solutions", desc: "Identity systems that resonate and scale with your business.", icon: Palette },
-  { title: "AI-Powered Digital Marketing", desc: "Intelligent campaigns that optimize themselves in real-time.", icon: Bot },
+  { title: "AI-Powered Digital Marketing", desc: "Intelligent campaigns that optimize themselves in real-time.", icon: Megaphone },
   { title: "Intelligent ERP & CRM Systems", desc: "Streamline operations with AI-enhanced business tools.", icon: Database },
   { title: "Advanced AI Agents & Automation", desc: "Automate workflows with intelligent AI-powered agents.", icon: Bot },
+  { title: "Ecommerce Development & Marketing", desc: "Full-funnel strategies to scale your online store revenue.", icon: ShoppingCart },
+  { title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that delight users and drive conversions.", icon: Layout },
+  { title: "Video Editing & Production", desc: "Professional video content that captivates and tells your brand story.", icon: Video },
 ];
 
 const containerVariants = {
