@@ -37,35 +37,52 @@ export const Navbar = () => {
           ? "bg-background/30 backdrop-blur-2xl shadow-[0_4px_30px_rgba(53,37,98,0.25)] border-b border-secondary/15"
           : "bg-transparent backdrop-blur-sm"
       }`}
-      style={{
-        WebkitBackdropFilter: scrolled ? "blur(40px) saturate(180%)" : "blur(8px)",
-        backdropFilter: scrolled ? "blur(40px) saturate(180%)" : "blur(8px)",
-      }}
+     style={{
+  background: scrolled
+    ? "rgba(255, 255, 255, 0.08)"
+    : "rgba(255, 255, 255, 0.04)",
+
+  WebkitBackdropFilter: scrolled
+    ? "blur(30px) saturate(200%)"
+    : "blur(20px) saturate(160%)",
+
+  backdropFilter: scrolled
+    ? "blur(30px) saturate(200%)"
+    : "blur(20px) saturate(160%)",
+
+  border: "1px solid rgba(255, 255, 255, 0.15)",
+
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+
+  borderRadius: "20px",
+}}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl  mt-3 rounded-lg mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 md:h-22">
           <a href="#home" onClick={(e) => smoothScroll(e, "#home")} className="flex-shrink-0">
-            <img src={logo} alt="CrevionAds" className="h-12 md:h-14 w-auto" />
+            <img src={logo} alt="CrevionAds" className="h-16 md:h-22 w-auto" />
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center font-serif gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => smoothScroll(e, link.href)}
-                className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+                className="text-lg font-medium text-muted-foreground  hover:text-accent transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={(e) => smoothScroll(e, "#contact")}
-              className="btn-primary text-sm !px-6 !py-2.5"
-            >
-              Contact Us
-            </a>
+           <a
+  href="https://wa.me/918113908262?text=Hi%20I%20would%20like%20to%20know%20more%20about%20your%20services%20(AI%20Development,%20Web%20Development,%20Digital%20Marketing)"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={() => setMobileOpen(false)}
+  className="btn-primary text-center text-sm !py-3 mt-2"
+>
+  Contact Us
+</a>
           </div>
 
           <button
@@ -99,13 +116,15 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={(e) => { smoothScroll(e, "#contact"); setMobileOpen(false); }}
-                className="btn-primary text-center text-sm !py-3 mt-2"
-              >
-                Contact Us
-              </a>
+            <a
+  href="https://wa.me/918113908262?text=Hi%20I%20would%20like%20to%20know%20more%20about%20your%20services%20(AI%20Development,%20Web%20Development,%20Digital%20Marketing)"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={() => setMobileOpen(false)}
+  className="btn-primary text-center text-sm !py-3 mt-2"
+>
+  Contact Us
+</a>
             </div>
           </motion.div>
         )}
