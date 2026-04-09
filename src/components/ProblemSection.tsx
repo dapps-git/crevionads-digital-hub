@@ -24,7 +24,7 @@ export const ProblemSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="font-display text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-[#341F60] leading-[1.2] text-center">
-              Digital Agency Problem<br />and their Best Solutions
+              Software & Marketing Challenges<br />and their Best Solutions
             </h2>
           </motion.div>
           
@@ -72,9 +72,9 @@ export const ProblemSection = () => {
             className="lg:col-span-7 flex flex-col justify-center gap-14 h-full pt-4 lg:pt-8"
           >
             <p className="text-xl lg:text-[1.35rem] font-medium text-[#8A32C6]/80 leading-relaxed max-w-2xl">
-              Digital agencies often struggle with visibility, lead generation, and standing out in a crowded market.
-              The best solution is a result-driven approach using smart strategies, creative content, and data-backed
-              optimization to deliver consistent growth and measurable results.
+              Modern businesses often struggle with scaling their software infrastructure, generating sustainable leads, and standing out in a crowded market.
+              The ideal solution is a unified, result-driven approach using cutting-edge IT systems, intelligent marketing strategies, and data-backed
+              optimization to deliver consistent growth and scalable results.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-8 lg:gap-12 mt-auto">
@@ -92,7 +92,7 @@ export const ProblemSection = () => {
                   />
                   <text className="text-[10.5px] font-bold fill-[#8A32C6] uppercase tracking-[0.22em]">
                     <textPath href="#spinTextPath" startOffset="0%">
-                      Leading IT company since 2024 • Leading
+                      Leading IT company since 2024
                     </textPath>
                   </text>
                 </svg>

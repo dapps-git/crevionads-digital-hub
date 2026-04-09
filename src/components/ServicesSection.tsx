@@ -35,10 +35,10 @@ export const ServicesSection = () => {
       <div className="text-center mb-16">
         <span className="section-badge">Our Services</span>
         <h2 className="font-display text-3xl md:text-5xl font-bold text-zinc-100 mt-6 mb-4">
-          Fueling Growth Through <span className="gradient-text">Digital Innovation</span>
+          Empowering Business with <span className="gradient-text">Software & Marketing</span>
         </h2>
         <p className="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          We blend creativity with analytics to deliver powerful digital marketing solutions that drive real results.
+          We blend cutting-edge software development with data-driven digital marketing to deliver comprehensive solutions that scale your business.
         </p>
       </div>
 
