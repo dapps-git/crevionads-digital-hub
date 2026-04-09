@@ -70,15 +70,15 @@ export const Navbar = () => {
     <div>
       <div className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-10 pt-4">
         <motion.nav
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ y: -100, opacity: 0, scale: 0.98 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, type: "spring", stiffness: 120, damping: 20 }}
           style={{
             background: scrolled
               ? "rgba(255, 255, 255, 0.10)"
               : "rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(30px) saturate(200%)",
-            WebkitBackdropFilter: "blur(30px) saturate(200%)",
+            backdropFilter: "blur(16px) saturate(180%)",
+            WebkitBackdropFilter: "blur(16px) saturate(180%)",
             border: "1px solid rgba(255, 255, 255, 0.18)",
             borderRadius: "60px",
             boxShadow: scrolled

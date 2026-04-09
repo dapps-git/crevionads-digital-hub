@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
-import heroBg from "@/assets/hero-bg.png";
+import { useEffect, useState } from "react";
+import heroBg from "@/assets/hero-bg.webp";
 
 const headingWords = [
   { text: "Grow Your Brand.", highlight: false },
@@ -25,64 +25,41 @@ const wordVariants = {
   },
 };
 
-const TypewriterWord = ({ word, startDelay }: { word: any, startDelay: number }) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+const typewriterContainer = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 1.5,
+    }
+  }
+};
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    let ctx: AudioContext | null = null;
+const typewriterChar = {
+  hidden: { opacity: 0, display: "none", y: 5 },
+  visible: { opacity: 1, display: "inline-block", y: 0 }
+};
 
-    timeoutId = setTimeout(() => {
-      setIsTyping(true);
-      let currentIndex = 0;
-      const chars = word.text.split("");
-      
-      const typeNextChar = () => {
-        if (currentIndex < chars.length) {
-          setDisplayedText(prev => prev + chars[currentIndex]);
-          
-          try {
-            if (!ctx) {
-              const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-              ctx = new AudioCtx();
-            }
-            if (ctx && ctx.state !== "suspended") {
-              const osc = ctx.createOscillator();
-              const gain = ctx.createGain();
-              osc.type = "sine";
-              osc.frequency.setValueAtTime(800, ctx.currentTime);
-              osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.02);
-              gain.gain.setValueAtTime(0.015, ctx.currentTime);
-              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02);
-              osc.connect(gain);
-              gain.connect(ctx.destination);
-              osc.start();
-              osc.stop(ctx.currentTime + 0.02);
-            }
-          } catch(e) {}
-
-          currentIndex++;
-          const nextDelay = Math.random() * 40 + 30; 
-          timeoutId = setTimeout(typeNextChar, nextDelay);
-        } else {
-          setIsTyping(false);
-          // Only show pulsing cursor after finished
-        }
-      };
-      
-      typeNextChar();
-    }, startDelay * 1000);
-
-    return () => clearTimeout(timeoutId);
-  }, [word.text, startDelay]);
-
+const TypewriterWord = ({ word }: { word: any }) => {
   return (
-    <span className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}>
-       {displayedText}
-       <span className={`inline-block w-1.5 h-[0.8em] bg-[#F4CE45] align-middle ml-1 rounded-sm ${!isTyping ? "animate-pulse" : ""}`}></span>
+    <motion.span 
+      variants={typewriterContainer}
+      initial="hidden"
+      animate="visible"
+      className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
+    >
+       {word.text.split("").map((c: string, index: number) => (
+         <motion.span key={index} variants={typewriterChar}>{c}</motion.span>
+       ))}
+       <motion.span 
+         initial={{ opacity: 0 }}
+         animate={{ opacity: [0, 1, 0] }}
+         transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+         className="inline-block w-1.5 h-[0.8em] bg-[#F4CE45] align-middle ml-1 rounded-sm"
+       ></motion.span>
        {" "}
-    </span>
+    </motion.span>
   );
 };
 
@@ -195,7 +172,7 @@ export const HeroSection = () => {
           >
             {headingWords.map((word, i) => {
               if (word.text === "Reach the Right Audience.") {
-                return <TypewriterWord key={i} word={word} startDelay={1.5} />;
+                return <TypewriterWord key={i} word={word} />;
               }
               return (
                <motion.span

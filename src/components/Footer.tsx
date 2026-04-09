@@ -1,5 +1,5 @@
 import logo from "@/assets/crevionads_logo.png";
-import bgImage from "@/assets/hero-bg.png";
+import bgImage from "@/assets/hero-bg.webp";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export const Footer = () => {

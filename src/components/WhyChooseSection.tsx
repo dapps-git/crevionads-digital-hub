@@ -1,7 +1,7 @@
 import { motion, useInView, animate } from "framer-motion";
 import { Rocket, Award, Shield, CheckSquare } from "lucide-react";
 import { useEffect, useRef } from "react";
-import bgImage from "@/assets/hero-bg.png";
+import bgImage from "@/assets/hero-bg.webp";
 
 const reasons = [
   { title: "Result-Driven Approach", desc: "Every strategy is designed to deliver measurable outcomes and sustainable growth.", icon: Rocket },
