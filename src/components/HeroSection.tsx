@@ -168,7 +168,7 @@ export const HeroSection = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-100 leading-[1.1] mb-6"
+            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold tracking-tight text-zinc-100 leading-[1.2] mb-6"
           >
             {headingWords.map((word, i) => {
               if (word.typewriter) {
