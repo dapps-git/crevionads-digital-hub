@@ -9,10 +9,15 @@ import { ClientsSection } from "@/components/ClientsSection";
 import { MarqueeStrip } from "@/components/MarqueeStrip";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { SEO } from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Leading Web & AI Development Agency in Kerala, India | CrevionAds" 
+        description="CrevionAds is the premier digital marketing, AI app development, and Web Design agency mainly focusing in India, Kerala. We build performance-driven solutions." 
+      />
       <Navbar /> 
       <HeroSection />
       <ProblemSection />

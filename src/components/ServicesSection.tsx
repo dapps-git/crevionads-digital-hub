@@ -1,19 +1,20 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Smartphone, Globe, Palette, Megaphone, Database, Bot,
   ShoppingCart, Layout, Video
 } from "lucide-react";
 
 const services = [
-  { title: "AI-Powered App Development", desc: "Custom mobile solutions driven by artificial intelligence.", icon: Smartphone },
-  { title: "AI-Enhanced Web Development", desc: "Modern websites built with cutting-edge AI technology.", icon: Globe },
-  { title: "Smart Branding Solutions", desc: "Identity systems that resonate and scale with your business.", icon: Palette },
-  { title: "AI-Powered Digital Marketing", desc: "Intelligent campaigns that optimize themselves in real-time.", icon: Megaphone },
-  { title: "Intelligent ERP & CRM Systems", desc: "Streamline operations with AI-enhanced business tools.", icon: Database },
-  { title: "Advanced AI Agents & Automation", desc: "Automate workflows with intelligent AI-powered agents.", icon: Bot },
-  { title: "Ecommerce Development & Marketing", desc: "Full-funnel strategies to scale your online store revenue.", icon: ShoppingCart },
-  { title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that delight users and drive conversions.", icon: Layout },
-  { title: "Video Editing & Production", desc: "Professional video content that captivates and tells your brand story.", icon: Video },
+  { slug: "ai-powered-app-development", title: "AI-Powered App Development", desc: "Custom mobile solutions driven by artificial intelligence.", icon: Smartphone },
+  { slug: "ai-enhanced-web-development", title: "AI-Enhanced Web Development", desc: "Modern websites built with cutting-edge AI technology.", icon: Globe },
+  { slug: "smart-branding-solutions", title: "Smart Branding Solutions", desc: "Identity systems that resonate and scale with your business.", icon: Palette },
+  { slug: "ai-powered-digital-marketing", title: "AI-Powered Digital Marketing", desc: "Intelligent campaigns that optimize themselves in real-time.", icon: Megaphone },
+  { slug: "intelligent-erp-crm-systems", title: "Intelligent ERP & CRM Systems", desc: "Streamline operations with AI-enhanced business tools.", icon: Database },
+  { slug: "advanced-ai-agents-automation", title: "Advanced AI Agents & Automation", desc: "Automate workflows with intelligent AI-powered agents.", icon: Bot },
+  { slug: "ecommerce-development-marketing", title: "Ecommerce Development & Marketing", desc: "Full-funnel strategies to scale your online store revenue.", icon: ShoppingCart },
+  { slug: "ui-ux-design", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that delight users and drive conversions.", icon: Layout },
+  { slug: "video-editing-production", title: "Video Editing & Production", desc: "Professional video content that captivates and tells your brand story.", icon: Video },
 ];
 
 const containerVariants = {
@@ -27,6 +28,8 @@ const cardVariants = {
 };
 
 export const ServicesSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="services" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-16">
@@ -50,6 +53,7 @@ export const ServicesSection = () => {
           <motion.div
             key={i}
             variants={cardVariants}
+            onClick={() => navigate(`/services/${service.slug}`)}
             className="glass-card-hover p-8 group cursor-pointer"
           >
             <div className="w-12 h-12 rounded-2xl bg-primary/30 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
