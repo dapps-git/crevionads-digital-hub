@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
 import { Rocket, Award, Shield, CheckSquare } from "lucide-react";
+import { useEffect, useRef } from "react";
 import bgImage from "@/assets/hero-bg.png";
 
 const reasons = [
@@ -24,6 +25,28 @@ const stats = [
   { value: "20+", label: "Expert teams" },
   { value: "3+", label: "Years of experience" },
 ];
+
+const AnimatedCounter = ({ to }: { to: number }) => {
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(nodeRef, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (isInView && nodeRef.current) {
+      const controls = animate(0, to, {
+        duration: 2.5,
+        ease: "easeOut",
+        onUpdate(value) {
+          if (nodeRef.current) {
+            nodeRef.current.textContent = Math.round(value).toString();
+          }
+        },
+      });
+      return () => controls.stop();
+    }
+  }, [to, isInView]);
+
+  return <span ref={nodeRef}>0</span>;
+};
 
 export const WhyChooseSection = () => {
   return (
@@ -159,11 +182,18 @@ export const WhyChooseSection = () => {
                   idx !== stats.length - 1 ? 'lg:border-r border-white/10' : ''
                 }`}
               >
-                <div className="flex items-center">
-                  <h4 className="text-5xl lg:text-[4rem] font-bold font-display text-white tracking-tighter">
-                    {stat.value.replace('+', '')}
+                <div className="flex items-center justify-center">
+                  <h4 
+                    className="text-[4rem] lg:text-[5.5rem] font-bold font-display tracking-tighter"
+                    style={{
+                      WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.8)',
+                      color: 'rgba(255, 255, 255, 0.05)',
+                      textShadow: '0 8px 32px rgba(255, 255, 255, 0.15)'
+                    }}
+                  >
+                    <AnimatedCounter to={parseInt(stat.value.replace('+', ''))} />
                   </h4>
-                  <span className="text-[#F4CE45] text-5xl lg:text-[4rem] font-bold ml-1">+</span>
+                  <span className="text-[#F4CE45] text-[3.5rem] lg:text-[4.5rem] font-bold ml-1 mb-1">+</span>
                 </div>
                 <p className="text-zinc-400 text-sm font-semibold mt-4 tracking-wider uppercase">
                   {stat.label}
