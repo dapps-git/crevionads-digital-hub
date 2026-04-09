@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import heroBg from "@/assets/hero-bg.webp";
 
 const headingWords = [
-  { text: "Grow Your Brand.", highlight: false },
-  { text: "Reach the Right Audience.", highlight: true },
-  { text: "Drive Measurable Results.", highlight: false },
+  { text: "Grow Your Brand.", highlight: false, typewriter: false },
+  { text: "Reach The Right Audience.", highlight: true, typewriter: true },
+  { text: "Drive Measurable Results.", highlight: false, typewriter: false },
 ];
 
 const containerVariants = {
@@ -50,7 +50,7 @@ const TypewriterWord = ({ word }: { word: any }) => {
       className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
     >
        {word.text.split("").map((c: string, index: number) => (
-         <motion.span key={index} variants={typewriterChar}>{c}</motion.span>
+         <motion.span key={index} variants={typewriterChar}>{c === " " ? "\u00A0" : c}</motion.span>
        ))}
        <motion.span 
          initial={{ opacity: 0 }}
@@ -168,10 +168,10 @@ export const HeroSection = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-100 leading-[1.1] mb-6"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-100 leading-[1.1] mb-6"
           >
             {headingWords.map((word, i) => {
-              if (word.text === "Reach the Right Audience.") {
+              if (word.typewriter) {
                 return <TypewriterWord key={i} word={word} />;
               }
               return (
@@ -192,7 +192,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-lg md:text-xl text-zinc-400 mb-10 max-w-xl leading-relaxed"
           >
-            CrevionAds is a performance-driven digital marketing agency helping brands grow faster with smart strategies and creative solutions.
+           Build better. Market smarter. Grow faster.
           </motion.p>
 
           <motion.div
