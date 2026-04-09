@@ -186,8 +186,6 @@ export const Navbar = () => {
         </motion.nav>
       </div>
 
-      {/* Spacer */}
-      <div className="h-24" />
     </div>
   );
 };

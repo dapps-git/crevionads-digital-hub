@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import heroBg from "@/assets/hero-bg.png";
 
 const headingWords = [
@@ -23,6 +23,67 @@ const wordVariants = {
     filter: "blur(0px)",
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   },
+};
+
+const TypewriterWord = ({ word, startDelay }: { word: any, startDelay: number }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    let ctx: AudioContext | null = null;
+
+    timeoutId = setTimeout(() => {
+      setIsTyping(true);
+      let currentIndex = 0;
+      const chars = word.text.split("");
+      
+      const typeNextChar = () => {
+        if (currentIndex < chars.length) {
+          setDisplayedText(prev => prev + chars[currentIndex]);
+          
+          try {
+            if (!ctx) {
+              const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+              ctx = new AudioCtx();
+            }
+            if (ctx && ctx.state !== "suspended") {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = "sine";
+              osc.frequency.setValueAtTime(800, ctx.currentTime);
+              osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.02);
+              gain.gain.setValueAtTime(0.015, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              osc.stop(ctx.currentTime + 0.02);
+            }
+          } catch(e) {}
+
+          currentIndex++;
+          const nextDelay = Math.random() * 40 + 30; 
+          timeoutId = setTimeout(typeNextChar, nextDelay);
+        } else {
+          setIsTyping(false);
+          // Only show pulsing cursor after finished
+        }
+      };
+      
+      typeNextChar();
+    }, startDelay * 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [word.text, startDelay]);
+
+  return (
+    <span className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}>
+       {displayedText}
+       <span className={`inline-block w-1.5 h-[0.8em] bg-[#F4CE45] align-middle ml-1 rounded-sm ${!isTyping ? "animate-pulse" : ""}`}></span>
+       {" "}
+    </span>
+  );
 };
 
 export const HeroSection = () => {
@@ -132,15 +193,20 @@ export const HeroSection = () => {
             animate="visible"
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-100 leading-[1.1] mb-6"
           >
-            {headingWords.map((word, i) => (
+            {headingWords.map((word, i) => {
+              if (word.text === "Reach the Right Audience.") {
+                return <TypewriterWord key={i} word={word} startDelay={1.5} />;
+              }
+              return (
                <motion.span
                  key={i}
                  variants={wordVariants}
-                 className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : ""}`}
+                 className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
                >
                  {word.text}{" "}
                </motion.span>
-            ))}
+              );
+            })}
           </motion.h1>
 
           <motion.p
