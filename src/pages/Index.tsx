@@ -7,7 +7,6 @@ import { ITSolutionsSection } from "@/components/ITSolutionsSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { ClientsSection } from "@/components/ClientsSection";
 import { MarqueeStrip } from "@/components/MarqueeStrip";
-import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
 
@@ -27,7 +26,6 @@ const Index = () => {
       <PortfolioSection />
       <ClientsSection />
       <MarqueeStrip />
-      <ContactSection />
       <Footer />
     </div>
   );
