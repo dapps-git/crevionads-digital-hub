@@ -168,7 +168,7 @@ export const HeroSection = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold tracking-tight text-zinc-100 leading-[1.2] mb-6"
+            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100 leading-[1.2] mb-6"
           >
             {headingWords.map((word, i) => {
               if (word.typewriter) {
@@ -190,7 +190,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg md:text-xl text-zinc-400 mb-10 max-w-xl leading-relaxed"
+            className="text-lg md:text-xl font-serif text-zinc-400 mb-10 max-w-xl leading-relaxed"
           >
            Build better. Market smarter. Grow faster.
           </motion.p>
