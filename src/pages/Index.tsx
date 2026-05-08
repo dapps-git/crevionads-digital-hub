@@ -1,3 +1,4 @@
+import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { ProblemSection } from "@/components/ProblemSection";
@@ -5,6 +6,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { WhyChooseSection } from "@/components/WhyChooseSection";
 import { ITSolutionsSection } from "@/components/ITSolutionsSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
+import { BlogSection } from "@/components/BlogSection";
 import { ClientsSection } from "@/components/ClientsSection";
 import { MarqueeStrip } from "@/components/MarqueeStrip";
 import { Footer } from "@/components/Footer";
@@ -24,6 +26,7 @@ const Index = () => {
       <WhyChooseSection />
       <ITSolutionsSection />
       <PortfolioSection />
+      <BlogSection />
       <ClientsSection />
       <MarqueeStrip />
       <Footer />

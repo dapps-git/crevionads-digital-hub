@@ -1,21 +1,16 @@
+import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/api";
 import {
   Smartphone, Globe, Palette, Megaphone, Database, Bot,
-  ShoppingCart, Layout, Video
+  ShoppingCart, Layout, Video, HelpCircle
 } from "lucide-react";
 
-const services = [
-  { slug: "ai-powered-app-development", title: "AI-Powered App Development", desc: "Custom mobile solutions driven by artificial intelligence.", icon: Smartphone },
-  { slug: "ai-enhanced-web-development", title: "AI-Enhanced Web Development", desc: "Modern websites built with cutting-edge AI technology.", icon: Globe },
-  { slug: "smart-branding-solutions", title: "Smart Branding Solutions", desc: "Identity systems that resonate and scale with your business.", icon: Palette },
-  { slug: "ai-powered-digital-marketing", title: "AI-Powered Digital Marketing", desc: "Intelligent campaigns that optimize themselves in real-time.", icon: Megaphone },
-  { slug: "intelligent-erp-crm-systems", title: "Intelligent ERP & CRM Systems", desc: "Streamline operations with AI-enhanced business tools.", icon: Database },
-  { slug: "advanced-ai-agents-automation", title: "Advanced AI Agents & Automation", desc: "Automate workflows with intelligent AI-powered agents.", icon: Bot },
-  { slug: "ecommerce-development-marketing", title: "Ecommerce Development & Marketing", desc: "Full-funnel strategies to scale your online store revenue.", icon: ShoppingCart },
-  { slug: "ui-ux-design", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that delight users and drive conversions.", icon: Layout },
-  { slug: "video-editing-production", title: "Video Editing & Production", desc: "Professional video content that captivates and tells your brand story.", icon: Video },
-];
+const iconMap: Record<string, any> = {
+  Smartphone, Globe, Palette, Megaphone, Database, Bot,
+  ShoppingCart, Layout, Video
+};
 
 const containerVariants = {
   hidden: {},
@@ -28,7 +23,13 @@ const cardVariants = {
 };
 
 export const ServicesSection = () => {
-  const navigate = useNavigate();
+  const { data: services, isLoading, error } = useQuery({
+    queryKey: ['services'],
+    queryFn: fetchServices,
+  });
+
+  if (isLoading) return <div className="py-20 text-center text-zinc-400">Loading services...</div>;
+  if (error) return <div className="py-20 text-center text-red-500">Error loading services</div>;
 
   return (
     <section id="services" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -47,22 +48,24 @@ export const ServicesSection = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
       >
-        {services.map((service, i) => (
-          <motion.div
-            key={i}
-            variants={cardVariants}
-            onClick={() => navigate(`/services/${service.slug}`)}
-            className="glass-card-hover p-8 group cursor-pointer"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-primary/30 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
-              <service.icon size={24} strokeWidth={1.5} />
-            </div>
-            <h3 className="font-display text-lg font-bold text-zinc-100 mb-3">{service.title}</h3>
-            <p className="text-zinc-500 text-sm leading-relaxed">{service.desc}</p>
-          </motion.div>
-        ))}
+        {services?.map((service: any, i: number) => {
+          const IconComponent = iconMap[service.icon] || HelpCircle;
+          return (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              className="glass-card-hover p-4 sm:p-8 group"
+            >
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
+                <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+              </div>
+              <h3 className="font-display text-sm sm:text-lg font-bold text-zinc-100 mb-2 sm:mb-3">{service.title}</h3>
+              <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">{service.desc}</p>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </section>
   );
