@@ -12,7 +12,7 @@ import { fetchBlogBySlug } from "@/lib/api";
 const BlogDetails = () => {
   const { blogSlug } = useParams<{ blogSlug: string }>();
   const navigate = useNavigate();
-  
+
   const { data: blog, isLoading, error } = useQuery({
     queryKey: ['blog', blogSlug],
     queryFn: () => fetchBlogBySlug(blogSlug || ''),
@@ -38,14 +38,14 @@ const BlogDetails = () => {
     <div className="min-h-screen bg-background pt-24">
       <SEO title={`${blog.title} | CrevionAds Blog`} description={blog.content.substring(0, 160)} />
       <Navbar />
-      
+
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <button 
+        <button
           onClick={() => navigate('/')}
           className="inline-flex items-center text-zinc-400 hover:text-accent transition-colors mb-8 group"
         >
           <ArrowLeft className="mr-2 h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
-          Back to Home
+          to Home
         </button>
 
         <motion.div
@@ -79,7 +79,7 @@ const BlogDetails = () => {
           )}
 
           <div className="glass-card p-8 md:p-12">
-            <div 
+            <div
               className="prose prose-invert prose-zinc max-w-none text-zinc-300 leading-relaxed text-lg"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
