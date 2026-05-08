@@ -72,7 +72,7 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1">
           <label className="text-xs text-zinc-500 uppercase tracking-wider">Title</label>
           <input
@@ -101,7 +101,7 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
 
       <div className="space-y-1">
         <label className="text-xs text-zinc-500 uppercase tracking-wider">Image (URL or Upload)</label>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             name="image"
             value={formData.image}
@@ -196,18 +196,18 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
         </div>
       )}
 
-      <div className="flex gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <button
           type="button"
           onClick={onClose}
-          className="flex-1 px-4 py-2 rounded-lg border border-white/10 text-zinc-400 hover:bg-white/5 transition-colors"
+          className="order-2 sm:order-1 flex-1 px-4 py-3 rounded-xl border border-white/10 text-zinc-400 hover:bg-white/5 transition-colors text-sm font-medium"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isLoading}
-          className="flex-1 btn-primary py-2 rounded-lg font-bold flex items-center justify-center gap-2"
+          className="order-1 sm:order-2 flex-1 btn-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
         >
           {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : `Create ${type.slice(0, -1)}`}
         </button>
