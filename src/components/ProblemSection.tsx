@@ -10,9 +10,6 @@ export const ProblemSection = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay blocked:", error);
-      });
     }
   }, []);
 
@@ -89,7 +86,8 @@ export const ProblemSection = () => {
                 loop
                 muted
                 playsInline
-                crossOrigin="anonymous"
+                // @ts-ignore
+                webkit-playsinline="true"
                 preload="auto"
                 onCanPlay={() => setIsVideoLoading(false)}
                 onPlaying={() => setIsVideoLoading(false)}
