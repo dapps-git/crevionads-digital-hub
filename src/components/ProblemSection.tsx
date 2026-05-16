@@ -88,11 +88,13 @@ export const ProblemSection = () => {
                 loop
                 muted
                 playsInline
+                crossOrigin="anonymous"
                 preload="auto"
                 onCanPlay={() => setIsVideoLoading(false)}
+                onPlaying={() => setIsVideoLoading(false)}
                 onError={(e) => {
                   console.error("Video error:", e);
-                  setIsVideoLoading(false); // Hide spinner even if it fails
+                  setIsVideoLoading(false);
                 }}
               >
                 <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4" type="video/mp4" />
