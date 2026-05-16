@@ -80,8 +80,7 @@ export const ProblemSection = () => {
 
               <video
                 ref={videoRef}
-                src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4"
-                className={`w-full h-full object-cover transition-opacity duration-700 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}
+                className="w-full h-full object-cover"
                 autoPlay
                 loop
                 muted
@@ -93,10 +92,19 @@ export const ProblemSection = () => {
                 onPlaying={() => setIsVideoLoading(false)}
                 onLoadedData={() => setIsVideoLoading(false)}
                 onError={(e) => {
-                  console.error("Video error:", e);
+                  // @ts-ignore
+                  const videoError = e.target?.error;
+                  console.error("Detailed Video Error:", {
+                    code: videoError?.code,
+                    message: videoError?.message,
+                    event: e
+                  });
                   setIsVideoLoading(false);
                 }}
-              />
+              >
+                <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
 
               {/* Audio Toggle Overlay */}
               <button
