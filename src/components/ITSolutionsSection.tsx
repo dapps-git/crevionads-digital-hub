@@ -11,12 +11,15 @@ const solutions = [
 
 export const ITSolutionsSection = () => {
   return (
-    <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-brand-dark font-sans">
       <div className="text-center mb-16">
-        <span className="section-badge">IT Solutions</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-zinc-100 mt-6 mb-4">
+        <span className="section-badge text-[10px]">IT Solutions</span>
+        <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-100 mt-5 mb-4 tracking-tight">
           Smart IT Solutions for <span className="gradient-text">Digital Transformation</span>
         </h2>
+        <p className="text-zinc-400 max-w-xl mx-auto leading-relaxed text-sm md:text-base">
+          We architect robust, scalable infrastructure and custom software solutions that serve as the backbone of your digital success.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,11 +36,11 @@ export const ITSolutionsSection = () => {
               <img
                 src={s.image}
                 alt={s.title}
-                className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="p-6 text-center">
-              <h3 className="font-display font-bold text-zinc-100">{s.title}</h3>
+              <h3 className="font-display font-bold text-zinc-100 text-sm sm:text-base">{s.title}</h3>
             </div>
           </motion.div>
         ))}

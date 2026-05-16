@@ -17,6 +17,12 @@ export const fetchWorks = async () => {
   return response.json();
 };
 
+export const fetchWorkById = async (id: string) => {
+  const response = await fetch(`${API_BASE_URL}/works/${id}`);
+  if (!response.ok) throw new Error('Failed to fetch work');
+  return response.json();
+};
+
 export const fetchBlogs = async () => {
   const response = await fetch(`${API_BASE_URL}/blogs`);
   if (!response.ok) throw new Error('Failed to fetch blogs');

@@ -21,17 +21,19 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
     description: "",
     category: "",
     image: "",
+    mobileImage: "",
+    laptopImage: "",
     content: "",
     icon: "Smartphone",
     link: "",
   });
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string = 'image') => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, image: reader.result as string });
+        setFormData((prev: any) => ({ ...prev, [fieldName]: reader.result as string }));
       };
       reader.readAsDataURL(file);
     }
@@ -88,14 +90,31 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
           <label className="text-xs text-zinc-500 uppercase tracking-wider">
             {type === "works" ? "Category" : "Slug"}
           </label>
-          <input
-            name={type === "works" ? "category" : "slug"}
-            value={type === "works" ? formData.category : formData.slug}
-            onChange={handleChange}
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
-            placeholder={type === "works" ? "e.g. SEO" : "e-commerce-app"}
-            required
-          />
+          {type === "works" ? (
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full bg-zinc-800 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Branding">Branding</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="App Development">App Development</option>
+            </select>
+          ) : (
+            <input
+              name="slug"
+              value={formData.slug}
+              onChange={handleChange}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+              placeholder="e-commerce-app"
+              required
+            />
+          )}
         </div>
       </div>
 
@@ -112,7 +131,7 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
+            onChange={(e) => handleImageUpload(e, 'image')}
             className="hidden"
             id="image-upload"
           />
@@ -129,6 +148,72 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
           </div>
         )}
       </div>
+
+      {type === "works" && (
+        <>
+          <div className="space-y-1">
+            <label className="text-xs text-zinc-500 uppercase tracking-wider">Mobile View Image</label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                name="mobileImage"
+                value={formData.mobileImage || ""}
+                onChange={handleChange}
+                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+                placeholder="Mobile Image URL or upload..."
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e, 'mobileImage')}
+                className="hidden"
+                id="mobile-image-upload"
+              />
+              <label
+                htmlFor="mobile-image-upload"
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-sm cursor-pointer transition-colors flex items-center justify-center whitespace-nowrap"
+              >
+                Choose File
+              </label>
+            </div>
+            {formData.mobileImage && formData.mobileImage.startsWith('data:image') && (
+              <div className="mt-2 h-24 w-32 rounded-lg bg-white/5 border border-white/10 overflow-hidden relative">
+                 <img src={formData.mobileImage} alt="Mobile Preview" className="w-full h-full object-cover" />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs text-zinc-500 uppercase tracking-wider">Laptop View Image</label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                name="laptopImage"
+                value={formData.laptopImage || ""}
+                onChange={handleChange}
+                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+                placeholder="Laptop Image URL or upload..."
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e, 'laptopImage')}
+                className="hidden"
+                id="laptop-image-upload"
+              />
+              <label
+                htmlFor="laptop-image-upload"
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-sm cursor-pointer transition-colors flex items-center justify-center whitespace-nowrap"
+              >
+                Choose File
+              </label>
+            </div>
+            {formData.laptopImage && formData.laptopImage.startsWith('data:image') && (
+              <div className="mt-2 h-24 w-32 rounded-lg bg-white/5 border border-white/10 overflow-hidden relative">
+                 <img src={formData.laptopImage} alt="Laptop Preview" className="w-full h-full object-cover" />
+              </div>
+            )}
+          </div>
+        </>
+      )}
 
       {(type === "services" || type === "works") && (
         <div className="space-y-1">

@@ -7,12 +7,15 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ServiceDetails from "./pages/ServiceDetails.tsx";
 import BlogDetails from "./pages/BlogDetails.tsx";
+import WorkDetails from "./pages/WorkDetails.tsx";
 import AdminLogin from "./pages/Admin/Login.tsx";
 import AdminDashboard from "./pages/Admin/Dashboard.tsx";
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate } from "react-router-dom";
 
 import { HelmetProvider } from "react-helmet-async";
+import { ScrollToTop } from "./components/ScrollToTop";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
 
 const queryClient = new QueryClient();
 
@@ -32,10 +35,13 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
+          <ScrollToTopButton />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services/:serviceSlug" element={<ServiceDetails />} />
             <Route path="/blog/:blogSlug" element={<BlogDetails />} />
+            <Route path="/work/:workId" element={<WorkDetails />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />

@@ -14,7 +14,7 @@ import { SEO } from "@/components/SEO";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO 
         title="Leading Web & AI Development Agency in Kerala, India | CrevionAds" 
         description="CrevionAds is the premier digital marketing, AI app development, and Web Design agency mainly focusing in India, Kerala. We build performance-driven solutions." 

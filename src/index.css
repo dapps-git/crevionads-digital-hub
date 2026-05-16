@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -45,8 +45,8 @@
     --sidebar-border: 258 44% 27% / 0.2;
     --sidebar-ring: 250 28% 50%;
 
-    --font-display: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-display: 'Montserrat', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
 
     --glow-purple: 0 8px 32px -4px rgba(102, 89, 165, 0.4);
     --glow-accent: 0 8px 32px -4px rgba(244, 206, 65, 0.3);
@@ -61,14 +61,21 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
     font-family: var(--font-body);
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
   }
 }

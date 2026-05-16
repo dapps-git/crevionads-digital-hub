@@ -25,7 +25,7 @@ export const Navbar = () => {
       if (location.pathname === "/") {
         const sections = navLinks.map(link => document.querySelector(link.href));
         let current = "";
-        
+
         for (const section of sections) {
           if (section) {
             const sectionTop = (section as HTMLElement).offsetTop;
@@ -35,7 +35,7 @@ export const Navbar = () => {
             }
           }
         }
-        
+
         if (current) {
           setActiveSection(current);
         } else if (window.scrollY < 100) {
@@ -43,7 +43,7 @@ export const Navbar = () => {
         }
       }
     };
-    
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [location.pathname]);
@@ -51,7 +51,7 @@ export const Navbar = () => {
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileOpen(false);
-    
+
     if (location.pathname !== "/") {
       navigate("/");
       // Wait for navigation and render, then scroll
@@ -75,20 +75,22 @@ export const Navbar = () => {
           transition={{ duration: 1.2, type: "spring", stiffness: 120, damping: 20 }}
           style={{
             background: scrolled
-              ? "rgba(255, 255, 255, 0.10)"
-              : "rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(16px) saturate(180%)",
-            WebkitBackdropFilter: "blur(16px) saturate(180%)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
+              ? "rgba(9, 4, 18, 0.95)"
+              : "rgba(255, 255, 255, 0.05)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: scrolled 
+              ? "1px solid rgba(255, 255, 255, 0.1)" 
+              : "1px solid rgba(255, 255, 255, 0.05)",
             borderRadius: "60px",
             boxShadow: scrolled
-              ? "0 8px 32px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.15)"
-              : "0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.10)",
-            transition: "all 0.4s ease",
+              ? "0 10px 30px -10px rgba(0,0,0,0.5)"
+              : "none",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          <div className="flex items-center justify-between px-4 sm:px-5 py-2.5">
-            
+          <div className="flex items-center justify-between px-4 sm:px-6 py-2.5">
+
             {/* Logo */}
             <a
               href="#home"
@@ -98,19 +100,23 @@ export const Navbar = () => {
               <img
                 src={logo}
                 alt="CrevionAds"
-                className="h-12  md:h-14 w-auto"
+                className={`h-10 md:h-12 w-auto transition-all duration-300 ${scrolled ? 'brightness-110' : ''}`}
               />
             </a>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex  gap-7 ">
+            <div className="hidden md:flex gap-8 items-center">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => smoothScroll(e, link.href)}
-                  className={`text-lg font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-brand-accent after:transition-all after:duration-300 ${
-                    activeSection === link.href ? "text-brand-accent after:w-full" : "text-zinc-200 hover:text-brand-accent after:w-0 hover:after:w-full"
+                  className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-brand-primary after:transition-all after:duration-300 ${
+                    activeSection === link.href 
+                      ? "text-brand-primary after:w-full" 
+                      : scrolled 
+                        ? "text-white hover:text-brand-primary after:w-0 hover:after:w-full" 
+                        : "text-zinc-200 hover:text-white after:w-0 hover:after:w-full"
                   }`}
                 >
                   {link.label}
@@ -162,9 +168,9 @@ export const Navbar = () => {
                       key={link.label}
                       href={link.href}
                       onClick={(e) => smoothScroll(e, link.href)}
-                      className={`text-lg font-medium transition-colors py-2 px-2 ${
-                        activeSection === link.href ? "text-brand-accent" : "text-zinc-200 hover:text-brand-accent"
-                       }`}
+                      className={`text-base font-bold uppercase tracking-widest transition-colors py-2 px-2 ${
+                        activeSection === link.href ? "text-brand-primary" : "text-zinc-200 hover:text-white"
+                      }`}
                     >
                       {link.label}
                     </a>

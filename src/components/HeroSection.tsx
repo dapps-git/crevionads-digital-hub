@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import heroBg from "@/assets/hero-bg.webp";
-
+import hero from "/heroo.jpg"
 const headingWords = [
   { text: "Grow Your Brand.", highlight: false, typewriter: false },
   { text: "Reach The Right Audience.", highlight: true, typewriter: true },
@@ -43,22 +43,22 @@ const typewriterChar = {
 
 const TypewriterWord = ({ word }: { word: any }) => {
   return (
-    <motion.span 
+    <motion.span
       variants={typewriterContainer}
       initial="hidden"
       animate="visible"
       className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
     >
-       {word.text.split("").map((c: string, index: number) => (
-         <motion.span key={index} variants={typewriterChar}>{c === " " ? "\u00A0" : c}</motion.span>
-       ))}
-       <motion.span 
-         initial={{ opacity: 0 }}
-         animate={{ opacity: [0, 1, 0] }}
-         transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-         className="inline-block w-1.5 h-[0.8em] bg-[#F4CE45] align-middle ml-1 rounded-sm"
-       ></motion.span>
-       {" "}
+      {word.text.split("").map((c: string, index: number) => (
+        <motion.span key={index} variants={typewriterChar}>{c === " " ? "\u00A0" : c}</motion.span>
+      ))}
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+        className="inline-block w-1.5 h-[0.8em] bg-[#F4CE45] align-middle ml-1 rounded-sm"
+      ></motion.span>
+      {" "}
     </motion.span>
   );
 };
@@ -78,80 +78,80 @@ export const HeroSection = () => {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <motion.div
-           animate={{ scale: [1, 1.1, 1], rotate: [0, 3, -3, 0] }}
-           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-           className="w-[120%] h-[120%] -left-[10%] -top-[10%] absolute origin-center"
+          animate={{ scale: [1, 1.1, 1], rotate: [0, 3, -3, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="w-[120%] h-[120%] -left-[10%] -top-[10%] absolute origin-center"
         >
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-80 mix-blend-screen" />
+          <img src={hero} alt="" className="w-full h-full object-cover opacity-80 mix-blend-screen" />
         </motion.div>
-        
+
         {/* Abstract Tech Nodes */}
         <div className="absolute inset-0 overflow-hidden mix-blend-screen pointer-events-none">
           {/* Glowing floating main particles */}
           {[...Array(15)].map((_, i) => (
-             <motion.div
-               key={`particle-${i}`}
-               className="absolute w-2 h-2 rounded-full bg-[#F4CE45] shadow-[0_0_20px_rgba(244,206,69,1)]"
-               initial={{ 
-                 x: Math.random() * windowDimensions.width, 
-                 y: Math.random() * windowDimensions.height,
-                 opacity: Math.random() * 0.5 + 0.2
-               }}
-               animate={{ 
-                 y: [null, Math.random() * -300 - 100],
-                 x: [null, Math.random() * 100 - 50],
-                 opacity: [0, 0.9, 0]
-               }}
-               transition={{ 
-                 duration: Math.random() * 3 + 3, 
-                 repeat: Infinity,
-                 ease: "easeInOut",
-                 delay: Math.random() * 5
-               }}
-             />
+            <motion.div
+              key={`particle-${i}`}
+              className="absolute w-2 h-2 rounded-full bg-[#F4CE45] shadow-[0_0_20px_rgba(244,206,69,1)]"
+              initial={{
+                x: Math.random() * windowDimensions.width,
+                y: Math.random() * windowDimensions.height,
+                opacity: Math.random() * 0.5 + 0.2
+              }}
+              animate={{
+                y: [null, Math.random() * -300 - 100],
+                x: [null, Math.random() * 100 - 50],
+                opacity: [0, 0.9, 0]
+              }}
+              transition={{
+                duration: Math.random() * 3 + 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: Math.random() * 5
+              }}
+            />
           ))}
 
           {/* Tech/Cyber nexus floating objects */}
           {[...Array(10)].map((_, i) => (
-             <motion.div
-               key={`nexus-${i}`}
-               className="absolute w-1.5 h-1.5 bg-[#8A32C6] rounded-sm shadow-[0_0_15px_rgba(138,50,198,1)]"
-               initial={{ 
-                 x: Math.random() * windowDimensions.width, 
-                 y: Math.random() * windowDimensions.height,
-                 rotate: 45
-               }}
-               animate={{ 
-                 y: [null, Math.random() * 200 + 100],
-                 opacity: [0, 0.8, 0],
-                 rotate: [45, 135]
-               }}
-               transition={{ 
-                 duration: Math.random() * 4 + 3, 
-                 repeat: Infinity,
-                 ease: "linear",
-                 delay: Math.random() * 4
-               }}
-             />
+            <motion.div
+              key={`nexus-${i}`}
+              className="absolute w-1.5 h-1.5 bg-[#8A32C6] rounded-sm shadow-[0_0_15px_rgba(138,50,198,1)]"
+              initial={{
+                x: Math.random() * windowDimensions.width,
+                y: Math.random() * windowDimensions.height,
+                rotate: 45
+              }}
+              animate={{
+                y: [null, Math.random() * 200 + 100],
+                opacity: [0, 0.8, 0],
+                rotate: [45, 135]
+              }}
+              transition={{
+                duration: Math.random() * 4 + 3,
+                repeat: Infinity,
+                ease: "linear",
+                delay: Math.random() * 4
+              }}
+            />
           ))}
-          
+
           {/* High-Speed Racing Tech Lines */}
-          <motion.div 
+          <motion.div
             className="absolute left-[-10%] top-[20%] w-[60%] h-[1px] bg-gradient-to-r from-transparent via-[#F4CE45]/60 to-transparent"
             animate={{ x: ["-100%", "180%"] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: "linear", delay: 0.5 }}
           />
-          <motion.div 
+          <motion.div
             className="absolute right-[-10%] bottom-[30%] w-[70%] h-[1px] bg-gradient-to-r from-transparent via-[#8A32C6]/60 to-transparent"
             animate={{ x: ["150%", "-100%"] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "linear", delay: 1 }}
           />
-          <motion.div 
+          <motion.div
             className="absolute left-[-10%] bottom-[15%] w-[40%] h-[1px] bg-gradient-to-r from-transparent via-[#F4CE45]/50 to-transparent"
             animate={{ x: ["-100%", "250%"] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "linear", delay: 3 }}
           />
-          <motion.div 
+          <motion.div
             className="absolute left-[30%] top-[-10%] w-[1px] h-[60%] bg-gradient-to-b from-transparent via-[#694CD0]/60 to-transparent shadow-[0_0_15px_rgba(105,76,208,0.8)]"
             animate={{ y: ["-100%", "180%"] }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 1.5 }}
@@ -168,20 +168,20 @@ export const HeroSection = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100 leading-[1.2] mb-6"
+            className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-100 leading-[1.2] mb-5"
           >
             {headingWords.map((word, i) => {
               if (word.typewriter) {
                 return <TypewriterWord key={i} word={word} />;
               }
               return (
-               <motion.span
-                 key={i}
-                 variants={wordVariants}
-                 className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
-               >
-                 {word.text}{" "}
-               </motion.span>
+                <motion.span
+                  key={i}
+                  variants={wordVariants}
+                  className={`inline-block ${word.highlight ? "bg-gradient-to-r from-[#F4CE45] to-[#694CD0] bg-clip-text text-transparent" : "text-white"}`}
+                >
+                  {word.text}{" "}
+                </motion.span>
               );
             })}
           </motion.h1>
@@ -190,9 +190,9 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg md:text-xl font-serif text-zinc-400 mb-10 max-w-xl leading-relaxed"
+            className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl leading-relaxed"
           >
-           Build better. Market smarter. Grow faster.
+            Build better. Market smarter. Grow faster.
           </motion.p>
 
           <motion.div
@@ -201,10 +201,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <a href="#contact" className="px-6 py-3.5 rounded-full bg-[#F4CE45] text-[#341F60] font-bold text-center tracking-wide shadow-[0_0_20px_rgba(244,206,69,0.4)] hover:bg-[#ffe374] transition-colors">
+            <a href="#contact" className="px-5 py-3 rounded-full bg-[#F4CE45] text-[#341F60] font-bold text-center tracking-wide shadow-[0_0_20px_rgba(244,206,69,0.4)] hover:bg-[#ffe374] transition-colors text-sm">
               Start Your Journey
             </a>
-            <a href="#services" className="px-6 py-3.5 rounded-full border border-white/20 text-white font-semibold text-center hover:bg-white/10 transition-colors">
+            <a href="#services" className="px-5 py-3 rounded-full border border-white/20 text-white font-semibold text-center hover:bg-white/10 transition-colors text-sm">
               View Our Work
             </a>
           </motion.div>
@@ -213,4 +213,3 @@ export const HeroSection = () => {
     </section>
   );
 };
-
