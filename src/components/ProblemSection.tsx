@@ -1,10 +1,20 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export const ProblemSection = () => {
   const [isMuted, setIsMuted] = useState(true);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay blocked:", error);
+      });
+    }
+  }, []);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -14,8 +24,8 @@ export const ProblemSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#FFF9EF] overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#FFF9EF] overflow-hidden font-sans">
+      <div className="max-w-7xl mx-auto pt-4 md:pt-0">
         {/* Header Row */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8 w-full">
           {/* Left Yellow Line */}
@@ -58,22 +68,30 @@ export const ProblemSection = () => {
           {/* Left Column - Video Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5 flex justify-center w-full"
           >
-            <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-black group">
+            <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-slate-900 group">
+              {/* Loading State */}
+              {isVideoLoading && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-[#341F60]/10 backdrop-blur-sm">
+                  <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+
               <video
                 ref={videoRef}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-opacity duration-700 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}
                 autoPlay
                 loop
                 muted
                 playsInline
-                poster="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+                preload="auto"
+                onLoadedData={() => setIsVideoLoading(false)}
               >
-                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4" type="video/mp4" />
+                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667%20(1)%20(1).mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
