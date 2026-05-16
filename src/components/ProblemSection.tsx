@@ -89,9 +89,13 @@ export const ProblemSection = () => {
                 muted
                 playsInline
                 preload="auto"
-                onLoadedData={() => setIsVideoLoading(false)}
+                onCanPlay={() => setIsVideoLoading(false)}
+                onError={(e) => {
+                  console.error("Video error:", e);
+                  setIsVideoLoading(false); // Hide spinner even if it fails
+                }}
               >
-                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667%20(1)%20(1).mp4" type="video/mp4" />
+                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
