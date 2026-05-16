@@ -102,7 +102,7 @@ export const ProblemSection = () => {
                   setIsVideoLoading(false);
                 }}
               >
-                <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
+                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/Img+7667+(1).mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
