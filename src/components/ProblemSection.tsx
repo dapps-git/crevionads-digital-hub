@@ -83,7 +83,7 @@ export const ProblemSection = () => {
 
               <video
                 ref={videoRef}
-                src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4"
+                src="https://s3.ap-south-1.amazonaws.com/crevionads/IMG_7667.MP4"
                 className={`w-full h-full object-cover transition-opacity duration-700 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}
                 autoPlay
                 loop
@@ -93,6 +93,7 @@ export const ProblemSection = () => {
                 preload="auto"
                 onCanPlay={() => setIsVideoLoading(false)}
                 onPlaying={() => setIsVideoLoading(false)}
+                onLoadedData={() => setIsVideoLoading(false)}
                 onError={(e) => {
                   console.error("Video error:", e);
                   setIsVideoLoading(false);
