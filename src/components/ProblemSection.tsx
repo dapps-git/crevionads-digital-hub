@@ -83,7 +83,7 @@ export const ProblemSection = () => {
 
               <video
                 ref={videoRef}
-                src="https://s3.ap-south-1.amazonaws.com/crevionads/IMG_7667.MP4"
+                src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4"
                 className={`w-full h-full object-cover transition-opacity duration-700 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}
                 autoPlay
                 loop
