@@ -66,13 +66,16 @@ export const ProblemSection = () => {
             <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-black group">
               <video
                 ref={videoRef}
-                src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4"
                 className="w-full h-full object-cover"
                 autoPlay
                 loop
-                muted={isMuted}
+                muted
                 playsInline
-              />
+                poster="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+              >
+                <source src="https://crevionads.s3.ap-south-1.amazonaws.com/IMG_7667.MP4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
 
               {/* Audio Toggle Overlay */}
               <button
