@@ -1,9 +1,12 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL;
 const fallbackApiUrl = import.meta.env.PROD
   ? 'https://crevionads-backend.onrender.com/api'
-  : 'http://localhost:5001/api';
+  : 'http://localhost:5002/api';
 
-export const API_BASE_URL = (configuredApiUrl || fallbackApiUrl).replace(/\/$/, '');
+const rawApiUrl = (configuredApiUrl || fallbackApiUrl).replace(/\/$/, '');
+
+// Ensure that the API base URL always ends with '/api' to match the backend routing
+export const API_BASE_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl}/api`;
 
 export const fetchServices = async () => {
   const response = await fetch(`${API_BASE_URL}/services`);

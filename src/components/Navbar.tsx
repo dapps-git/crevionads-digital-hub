@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/api";
 import logo from "@/assets/crevionads_logo.png";
 
 const navLinks = [
@@ -16,6 +18,11 @@ export const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { data: services } = useQuery({
+    queryKey: ['services'],
+    queryFn: fetchServices,
+  });
 
   useEffect(() => {
     const onScroll = () => {
@@ -75,17 +82,17 @@ export const Navbar = () => {
           transition={{ duration: 1.2, type: "spring", stiffness: 120, damping: 20 }}
           style={{
             background: scrolled
-              ? "rgba(9, 4, 18, 0.95)"
-              : "rgba(255, 255, 255, 0.05)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+              ? "rgba(10, 6, 22, 0.45)"
+              : "rgba(255, 255, 255, 0.03)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
             border: scrolled 
-              ? "1px solid rgba(255, 255, 255, 0.1)" 
-              : "1px solid rgba(255, 255, 255, 0.05)",
+              ? "1px solid rgba(255, 255, 255, 0.12)" 
+              : "1px solid rgba(255, 255, 255, 0.06)",
             borderRadius: "60px",
             boxShadow: scrolled
-              ? "0 10px 30px -10px rgba(0,0,0,0.5)"
-              : "none",
+              ? "inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 50px -12px rgba(102, 89, 165, 0.2)"
+              : "inset 0 1px 0 0 rgba(255, 255, 255, 0.05), none",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
@@ -106,22 +113,65 @@ export const Navbar = () => {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex gap-8 items-center">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => smoothScroll(e, link.href)}
-                  className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-brand-primary after:transition-all after:duration-300 ${
-                    activeSection === link.href 
-                      ? "text-brand-primary after:w-full" 
-                      : scrolled 
-                        ? "text-white hover:text-brand-primary after:w-0 hover:after:w-full" 
-                        : "text-zinc-200 hover:text-white after:w-0 hover:after:w-full"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                if (link.label === "Services") {
+                  return (
+                    <div key={link.label} className="relative group py-2">
+                      <button
+                        onClick={(e) => smoothScroll(e as any, link.href)}
+                        className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-1.5 ${
+                          activeSection === link.href 
+                            ? "text-brand-primary" 
+                            : scrolled 
+                              ? "text-white hover:text-brand-primary" 
+                              : "text-zinc-200 hover:text-white"
+                        }`}
+                      >
+                        {link.label}
+                        <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+
+                      {/* Glassmorphism Dropdown */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-56 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                        <div className="glass-card p-2 border border-white/10 shadow-2xl backdrop-blur-2xl bg-[#0a0616]/90 rounded-2xl flex flex-col gap-1">
+                          {services && services.length > 0 ? (
+                            services.map((service: any) => (
+                              <Link
+                                key={service._id}
+                                to={`/services/${service.slug}`}
+                                className="px-4 py-2.5 text-left text-[10px] font-bold uppercase tracking-wider text-zinc-300 hover:text-brand-primary hover:bg-white/5 rounded-xl transition-all duration-200"
+                              >
+                                {service.title}
+                              </Link>
+                            ))
+                          ) : (
+                            <span className="px-4 py-2 text-xs text-zinc-500 italic">No services loaded</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => smoothScroll(e, link.href)}
+                    className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-brand-primary after:transition-all after:duration-300 ${
+                      activeSection === link.href 
+                        ? "text-brand-primary after:w-full" 
+                        : scrolled 
+                          ? "text-white hover:text-brand-primary after:w-0 hover:after:w-full" 
+                          : "text-zinc-200 hover:text-white after:w-0 hover:after:w-full"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
 
             {/* Desktop Button */}
@@ -163,18 +213,49 @@ export const Navbar = () => {
                     margin: "0 16px",
                   }}
                 >
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      onClick={(e) => smoothScroll(e, link.href)}
-                      className={`text-base font-bold uppercase tracking-widest transition-colors py-2 px-2 ${
-                        activeSection === link.href ? "text-brand-primary" : "text-zinc-200 hover:text-white"
-                      }`}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
+                  {navLinks.map((link) => {
+                    if (link.label === "Services") {
+                      return (
+                        <div key={link.label} className="flex flex-col gap-1.5 py-1">
+                          <button
+                            onClick={(e) => smoothScroll(e as any, link.href)}
+                            className="text-base font-bold uppercase tracking-widest text-left text-zinc-400 py-1.5 px-2 hover:text-white transition-colors"
+                          >
+                            Services
+                          </button>
+                          <div className="flex flex-col gap-2 pl-4 border-l border-white/10 ml-2">
+                            {services && services.length > 0 ? (
+                              services.map((service: any) => (
+                                <Link
+                                  key={service._id}
+                                  to={`/services/${service.slug}`}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-brand-primary py-1.5 px-2 transition-colors"
+                                >
+                                  {service.title}
+                                </Link>
+                              ))
+                            ) : (
+                              <span className="text-xs text-zinc-500 italic py-1 px-2">No services loaded</span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        onClick={(e) => smoothScroll(e, link.href)}
+                        className={`text-base font-bold uppercase tracking-widest transition-colors py-2 px-2 ${
+                          activeSection === link.href ? "text-brand-primary" : "text-zinc-200 hover:text-white"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  })}
 
                   <a
                     href="https://wa.me/918113908262?text=Hi%20I%20would%20like%20to%20know%20more%20about%20your%20services%20(AI%20Development,%20Web%20Development,%20Digital%20Marketing)"

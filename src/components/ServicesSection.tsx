@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { fetchServices } from "@/lib/api";
 import {
   Smartphone, Globe, Palette, Megaphone, Database, Bot,
@@ -67,17 +68,18 @@ export const ServicesSection = () => {
           {services?.map((service: any, i: number) => {
             const IconComponent = iconMap[service.icon] || HelpCircle;
             return (
-              <motion.div
-                key={i}
-                variants={cardVariants}
-                className="glass-card-hover p-4 sm:p-8 group bg-[#2D1B69]/20 border-primary/30 hover:bg-[#2D1B69]/40 hover:border-primary/60"
-              >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/40 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500 shadow-lg shadow-primary/20">
-                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-display text-sm sm:text-base font-bold text-zinc-100 mb-2 sm:mb-3">{service.title}</h3>
-                <p className="text-zinc-400 text-[11px] sm:text-xs leading-relaxed line-clamp-3 sm:line-clamp-none font-medium">{service.desc}</p>
-              </motion.div>
+              <Link key={i} to={`/services/${service.slug}`} className="block h-full">
+                <motion.div
+                  variants={cardVariants}
+                  className="glass-card-hover p-4 sm:p-8 group bg-[#2D1B69]/20 border-primary/30 hover:bg-[#2D1B69]/40 hover:border-primary/60 h-full cursor-pointer"
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/40 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500 shadow-lg shadow-primary/20">
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="font-display text-sm sm:text-base font-bold text-zinc-100 mb-2 sm:mb-3">{service.title}</h3>
+                  <p className="text-zinc-400 text-[11px] sm:text-xs leading-relaxed line-clamp-3 sm:line-clamp-none font-medium">{service.desc}</p>
+                </motion.div>
+              </Link>
             );
           })}
         </motion.div>
