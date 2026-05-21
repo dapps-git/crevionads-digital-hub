@@ -187,7 +187,10 @@ const AdminDashboard = () => {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <button className="p-2 hover:bg-white/10 rounded-lg text-zinc-500 hover:text-brand-primary transition-colors">
+                      <button 
+                        onClick={() => { setEditingItem(item); setIsModalOpen(true); }}
+                        className="p-2 hover:bg-white/10 rounded-lg text-zinc-500 hover:text-brand-primary transition-colors"
+                      >
                         <Edit size={16} />
                       </button>
                       <button 
@@ -231,7 +234,9 @@ const AdminDashboard = () => {
               className="relative z-10 w-full max-w-2xl bg-zinc-950 border border-white/10 rounded-3xl p-5 md:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-8 sticky top-0 bg-zinc-950 pt-1 pb-4 z-10 border-b border-white/5">
-                <h2 className="text-xl md:text-2xl font-bold font-display">Add New {activeTab.slice(0, -1)}</h2>
+                <h2 className="text-xl md:text-2xl font-bold font-display">
+                  {editingItem ? `Edit ${activeTab.slice(0, -1)}` : `Add New ${activeTab.slice(0, -1)}`}
+                </h2>
                 <button onClick={() => setIsModalOpen(false)} className="p-2 bg-white/5 rounded-full text-zinc-500 hover:text-white transition-colors">
                   <X size={20} />
                 </button>
@@ -239,9 +244,11 @@ const AdminDashboard = () => {
               
               <AdminForm 
                 type={activeTab} 
-                onClose={() => setIsModalOpen(false)} 
+                initialData={editingItem}
+                onClose={() => { setIsModalOpen(false); setEditingItem(null); }} 
                 onSuccess={() => {
                   queryClient.invalidateQueries({ queryKey: [activeTab] });
+                  setEditingItem(null);
                 }}
                 token={admin?.token || ""}
               />

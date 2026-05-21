@@ -7,25 +7,30 @@ import { API_BASE_URL } from "@/lib/api";
 
 interface AdminFormProps {
   type: string;
+  initialData?: any;
   onClose: () => void;
   onSuccess: () => void;
   token: string;
 }
 
-const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
+const AdminForm = ({ type, initialData, onClose, onSuccess, token }: AdminFormProps) => {
+  const isEditing = !!initialData?._id;
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<any>({
-    title: "",
-    slug: "",
-    desc: "",
-    description: "",
-    category: "",
-    image: "",
-    mobileImage: "",
-    laptopImage: "",
-    content: "",
-    icon: "Smartphone",
-    link: "",
+    title: initialData?.title || "",
+    slug: initialData?.slug || "",
+    desc: initialData?.desc || "",
+    description: initialData?.description || "",
+    category: initialData?.category || "",
+    image: initialData?.image || "",
+    mobileImage: initialData?.mobileImage || "",
+    laptopImage: initialData?.laptopImage || "",
+    content: initialData?.content || "",
+    detailedContent: initialData?.detailedContent || "",
+    icon: initialData?.icon || "Smartphone",
+    link: initialData?.link || "",
+    author: initialData?.author || "",
+    tags: initialData?.tags?.join(", ") || "",
   });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string = 'image') => {
@@ -43,23 +48,34 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
     e.preventDefault();
     setIsLoading(true);
 
+    // Convert comma-separated tags string back to array for blogs
+    const payload = { ...formData };
+    if (type === "blogs" && typeof payload.tags === "string") {
+      payload.tags = payload.tags.split(",").map((t: string) => t.trim()).filter(Boolean);
+    }
+
     try {
-      const response = await fetch(`${API_BASE_URL}/${type}`, {
-        method: "POST",
+      const url = isEditing
+        ? `${API_BASE_URL}/${type}/${initialData._id}`
+        : `${API_BASE_URL}/${type}`;
+      const method = isEditing ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
-        toast.success(`${type.slice(0, -1)} added successfully!`);
+        toast.success(`${type.slice(0, -1)} ${isEditing ? "updated" : "added"} successfully!`);
         onSuccess();
         onClose();
       } else {
         const data = await response.json();
-        toast.error(data.message || "Failed to add item");
+        toast.error(data.message || `Failed to ${isEditing ? "update" : "add"} item`);
       }
     } catch (error) {
       toast.error("Error connecting to server");
@@ -281,6 +297,31 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
         </div>
       )}
 
+      {type === "blogs" && (
+        <div className="space-y-1">
+          <label className="text-xs text-zinc-500 uppercase tracking-wider">Author</label>
+          <input
+            name="author"
+            value={formData.author}
+            onChange={handleChange}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+            placeholder="Author name"
+          />
+        </div>
+      )}
+
+      {type === "blogs" && (
+        <div className="space-y-1">
+          <label className="text-xs text-zinc-500 uppercase tracking-wider">Tags (comma-separated)</label>
+          <input
+            name="tags"
+            value={formData.tags}
+            onChange={handleChange}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-brand-primary outline-none"
+            placeholder="seo, marketing, web"
+          />
+        </div>
+      )}
       <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <button
           type="button"
@@ -294,7 +335,7 @@ const AdminForm = ({ type, onClose, onSuccess, token }: AdminFormProps) => {
           disabled={isLoading}
           className="order-1 sm:order-2 flex-1 btn-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
         >
-          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : `Create ${type.slice(0, -1)}`}
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : (isEditing ? `Update ${type.slice(0, -1)}` : `Create ${type.slice(0, -1)}`)}
         </button>
       </div>
     </form>
