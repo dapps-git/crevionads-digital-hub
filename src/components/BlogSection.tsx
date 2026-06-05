@@ -23,7 +23,7 @@ export const BlogSection = () => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
         {blogs?.map((blog: any, i: number) => (
           <motion.div
             key={i}
@@ -40,29 +40,29 @@ export const BlogSection = () => {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="p-6 flex flex-col flex-grow">
-              <div className="flex items-center gap-4 text-xs text-zinc-500 mb-4">
+            <div className="p-3 sm:p-6 flex flex-col flex-grow">
+              <div className="flex items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-500 mb-2 sm:mb-4">
                 <span className="flex items-center gap-1">
-                  <Calendar size={14} />
+                  <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   {new Date(blog.createdAt).toLocaleDateString()}
                 </span>
                 <span className="flex items-center gap-1">
-                  <User size={14} />
+                  <User className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   {blog.author}
                 </span>
               </div>
-              <h3 className="font-display text-xl font-bold text-zinc-100 mb-3 group-hover:text-accent transition-colors">
+              <h3 className="font-display text-sm sm:text-base md:text-xl font-bold text-zinc-100 mb-1.5 sm:mb-3 group-hover:text-accent transition-colors">
                 {blog.title}
               </h3>
-              <p className="text-zinc-500 text-sm line-clamp-3 mb-6">
+              <p className="text-zinc-500 text-[10px] sm:text-xs md:text-sm line-clamp-2 sm:line-clamp-3 mb-3 sm:mb-6">
                 {blog.content.replace(/<[^>]*>?/gm, '')}
               </p>
               <div className="mt-auto">
                 <Link
                   to={`/blog/${blog.slug}`}
-                  className="inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-1 sm:gap-2 text-accent font-semibold text-xs sm:text-sm hover:gap-3 transition-all"
                 >
-                  Read More <ArrowRight size={16} />
+                  Read More <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </Link>
               </div>
             </div>

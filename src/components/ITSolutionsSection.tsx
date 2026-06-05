@@ -7,6 +7,7 @@ const solutions = [
   { title: "AI Powered App Development", image: portfolio2 },
   { title: "AI Enhanced Web Development", image: portfolio1 },
   { title: "Smart Branding Solutions", image: portfolio3 },
+  { title: "Custom API & Cloud Solutions", image: portfolio2 },
 ];
 
 export const ITSolutionsSection = () => {
@@ -22,7 +23,7 @@ export const ITSolutionsSection = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
         {solutions.map((s, i) => (
           <motion.div
             key={i}
@@ -30,17 +31,17 @@ export const ITSolutionsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.15 }}
-            className="glass-card-hover overflow-hidden group"
+            className="glass-card-hover overflow-hidden group rounded-xl md:rounded-2xl"
           >
-            <div className="overflow-hidden rounded-t-2xl">
+            <div className="overflow-hidden rounded-t-xl md:rounded-t-2xl">
               <img
                 src={s.image}
                 alt={s.title}
-                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-20 sm:h-36 md:h-48 object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="p-6 text-center">
-              <h3 className="font-display font-bold text-zinc-100 text-sm sm:text-base">{s.title}</h3>
+            <div className="p-2 md:p-6 text-center">
+              <h3 className="font-display font-bold text-zinc-100 text-[10px] sm:text-sm md:text-base leading-tight">{s.title}</h3>
             </div>
           </motion.div>
         ))}

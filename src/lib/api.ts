@@ -13,7 +13,15 @@ export const fetchServices = async () => {
   if (!response.ok) throw new Error('Failed to fetch services');
   return response.json();
 };
+export const fetchTestimonials = async () => {
+  const response = await fetch(`${API_BASE_URL}/testimonials`);
 
+  if (!response.ok) {
+    throw new Error("Failed to fetch testimonials");
+  }
+
+  return response.json();
+};
 export const fetchWorks = async () => {
   const response = await fetch(`${API_BASE_URL}/works`);
   if (!response.ok) throw new Error('Failed to fetch works');

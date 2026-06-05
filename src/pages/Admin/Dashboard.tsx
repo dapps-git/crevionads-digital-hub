@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   LogOut, Plus, Edit, Trash2, Search, X, 
-  FileText, Briefcase, Settings, Menu 
+  FileText, Briefcase, Settings, Menu, MessageSquare
 } from "lucide-react";
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchServices, fetchBlogs, fetchWorks, API_BASE_URL } from "@/lib/api";
+import { fetchServices, fetchBlogs, fetchWorks, fetchTestimonials, API_BASE_URL } from "@/lib/api";
 import AdminForm from "@/components/Admin/AdminForm";
 
 const AdminDashboard = () => {
@@ -24,6 +24,7 @@ const AdminDashboard = () => {
   const { data: services } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
   const { data: blogs } = useQuery({ queryKey: ["blogs"], queryFn: fetchBlogs });
   const { data: works } = useQuery({ queryKey: ["works"], queryFn: fetchWorks });
+  const { data: testimonials } = useQuery({ queryKey: ["testimonials"], queryFn: fetchTestimonials });
 
   // Delete Mutation
   const deleteMutation = useMutation({
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
       case "services": return services;
       case "blogs": return blogs;
       case "works": return works;
+      case "testimonials": return testimonials;
       default: return [];
     }
   };
@@ -71,6 +73,7 @@ const AdminDashboard = () => {
     { id: "services", label: "Services", icon: Settings },
     { id: "blogs", label: "Blogs", icon: FileText },
     { id: "works", label: "Portfolio", icon: Briefcase },
+    { id: "testimonials", label: "Testimonials", icon: MessageSquare },
   ];
 
   return (
@@ -156,8 +159,12 @@ const AdminDashboard = () => {
           <table className="w-full text-left min-w-[600px]">
             <thead>
               <tr className="border-b border-white/5 bg-white/5">
-                <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Title</th>
-                <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+                  {activeTab === "testimonials" ? "Client Name" : "Title"}
+                </th>
+                <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+                  {activeTab === "testimonials" ? "Company & Role" : "Category"}
+                </th>
                 <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Date</th>
                 <th className="px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider text-right">Actions</th>
               </tr>
@@ -174,12 +181,16 @@ const AdminDashboard = () => {
                           <FileText size={18} />
                         </div>
                       )}
-                      <span className="font-medium text-sm text-zinc-200 line-clamp-1">{item.title}</span>
+                      <span className="font-medium text-sm text-zinc-200 line-clamp-1">
+                        {activeTab === "testimonials" ? item.name : item.title}
+                      </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-zinc-500 text-xs">
                     <span className="px-2 py-1 rounded-md bg-white/5 border border-white/5">
-                      {item.slug || item.category || "N/A"}
+                      {activeTab === "testimonials" 
+                        ? `${item.company} (${item.role})` 
+                        : (item.slug || item.category || "N/A")}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-zinc-500 text-xs whitespace-nowrap">
