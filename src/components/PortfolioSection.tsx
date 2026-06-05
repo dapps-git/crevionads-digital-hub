@@ -79,38 +79,15 @@ export const PortfolioSection = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               onMouseEnter={() => prefetchWork(w._id)}
-              className="glass-card-hover overflow-hidden group relative flex flex-col h-full border border-white/5 bg-white/5"
+              className="group relative flex items-center justify-center h-12 sm:h-20 w-full p-1 overflow-hidden"
             >
               <Link to={`/work/${w._id}`} className="absolute inset-0 z-10" aria-label={`View ${w.title} details`}></Link>
               
-              <div className="overflow-hidden bg-white/10 flex items-center justify-center h-28 sm:h-56 p-2 sm:p-4">
-                <img
-                  src={w.image}
-                  alt={w.title}
-                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
-              </div>
-
-              <div className="p-3 sm:p-6 flex flex-col flex-grow">
-                <div className="flex justify-between items-start mb-1 sm:mb-3">
-                  <span className="text-brand-primary text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em]">
-                    {w.category}
-                  </span>
-                </div>
-                <h3 className="font-display font-bold text-white text-xs sm:text-lg mb-1 sm:mb-3 group-hover:text-brand-primary transition-colors line-clamp-1">
-                  {w.title}
-                </h3>
-                {w.description && (
-                  <p className="text-zinc-400 text-[10px] sm:text-sm leading-relaxed line-clamp-2 font-medium">
-                    {w.description}
-                  </p>
-                )}
-                
-                <div className="mt-auto pt-3 sm:pt-4 border-t border-white/5 flex items-center text-zinc-500 group-hover:text-white transition-colors">
-                  <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">View Project</span>
-                  <div className="ml-2 w-4 sm:w-8 h-[1px] bg-zinc-500 group-hover:bg-brand-primary group-hover:w-12 transition-all" />
-                </div>
-              </div>
+              <img
+                src={w.image}
+                alt={w.title}
+                className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out rounded-lg"
+              />
             </motion.div>
           ))}
         </AnimatePresence>
