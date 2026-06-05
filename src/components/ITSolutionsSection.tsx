@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.png";
 
 const solutions = [
   { title: "AI Powered App Development", image: portfolio2 },
   { title: "AI Enhanced Web Development", image: portfolio1 },
   { title: "Smart Branding Solutions", image: portfolio3 },
-  { title: "Custom API & Cloud Solutions", image: portfolio2 },
+  { title: "Custom API & Cloud Solutions", image: portfolio4 },
 ];
 
 export const ITSolutionsSection = () => {
