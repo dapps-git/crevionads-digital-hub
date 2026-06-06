@@ -48,26 +48,37 @@ export const PortfolioSection = () => {
         </h2>
         
         {/* Category Filters */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 border ${
-                activeCategory === cat
-                  ? "bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/20"
-                  : "bg-white/5 border-white/10 text-zinc-400 hover:border-white/20 hover:text-white"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="relative w-full">
+          <style>{`
+            .no-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+            .no-scrollbar {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+          `}</style>
+          <div className="flex flex-row overflow-x-auto no-scrollbar md:flex-wrap md:justify-center gap-2 sm:gap-4 mt-8 pb-2 px-4 max-w-full scroll-smooth">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`flex-shrink-0 px-4 py-2 sm:px-5 sm:py-2 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 border ${
+                  activeCategory === cat
+                    ? "bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/20"
+                    : "bg-white/5 border-white/10 text-zinc-400 hover:border-white/20 hover:text-white"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <motion.div 
         layout
-        className="flex flex-wrap justify-center gap-1 sm:gap-6 mt-12"
+        className="flex flex-wrap justify-center gap-2 sm:gap-6 mt-12"
       >
         <AnimatePresence mode="popLayout">
           {filteredWorks?.map((w: any, i: number) => (
@@ -79,14 +90,14 @@ export const PortfolioSection = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               onMouseEnter={() => prefetchWork(w._id)}
-              className="group relative flex items-center justify-center bg-white border border-white/10 rounded-sm sm:rounded-xl aspect-[16/9] w-12 sm:w-28 md:w-36 lg:w-44 p-0.5 sm:p-3 overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 flex-shrink-0"
+              className="group relative flex items-center justify-center bg-white border border-white/10 rounded-lg sm:rounded-xl aspect-[16/9] w-20 sm:w-28 md:w-36 lg:w-44 p-1.5 sm:p-3 overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 flex-shrink-0"
             >
               <Link to={`/work/${w._id}`} className="absolute inset-0 z-10" aria-label={`View ${w.title} details`}></Link>
               
               <img
                 src={w.image}
                 alt={w.title}
-                className="max-w-[75%] max-h-[75%] object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
+                className="max-w-[80%] max-h-[80%] object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
               />
             </motion.div>
           ))}

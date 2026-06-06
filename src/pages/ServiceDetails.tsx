@@ -507,7 +507,7 @@ const ServiceDetails = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-1 sm:gap-6 mt-12">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-6 mt-12">
             {matchingWorks.map((w: any, i: number) => (
               <motion.div
                 key={w._id || i}
@@ -515,14 +515,14 @@ const ServiceDetails = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group relative flex items-center justify-center bg-white border border-white/10 rounded-sm sm:rounded-xl aspect-[16/9] w-12 sm:w-28 md:w-36 lg:w-44 p-0.5 sm:p-3 overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 flex-shrink-0"
+                className="group relative flex items-center justify-center bg-white border border-white/10 rounded-lg sm:rounded-xl aspect-[16/9] w-20 sm:w-28 md:w-36 lg:w-44 p-1.5 sm:p-3 overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 flex-shrink-0"
               >
                 <Link to={`/work/${w._id}`} className="absolute inset-0 z-10" aria-label={`View ${w.title} details`}></Link>
                 
                 <img
                   src={w.image}
                   alt={w.title}
-                  className="max-w-[75%] max-h-[75%] object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="max-w-[80%] max-h-[80%] object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </motion.div>
             ))}
