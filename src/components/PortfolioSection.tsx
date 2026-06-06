@@ -67,7 +67,7 @@ export const PortfolioSection = () => {
 
       <motion.div 
         layout
-        className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 mt-12"
+        className="flex flex-wrap justify-center gap-1 sm:gap-6 mt-12"
       >
         <AnimatePresence mode="popLayout">
           {filteredWorks?.map((w: any, i: number) => (
@@ -79,14 +79,14 @@ export const PortfolioSection = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               onMouseEnter={() => prefetchWork(w._id)}
-              className="group relative flex items-center justify-center h-12 sm:h-20 w-full p-1 overflow-hidden"
+              className="group relative flex items-center justify-center bg-white border border-white/10 rounded-sm sm:rounded-xl aspect-[16/9] w-12 sm:w-28 md:w-36 lg:w-44 p-0.5 sm:p-3 overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 flex-shrink-0"
             >
               <Link to={`/work/${w._id}`} className="absolute inset-0 z-10" aria-label={`View ${w.title} details`}></Link>
               
               <img
                 src={w.image}
                 alt={w.title}
-                className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out rounded-lg"
+                className="max-w-[75%] max-h-[75%] object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
               />
             </motion.div>
           ))}

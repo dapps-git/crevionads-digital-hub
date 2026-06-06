@@ -62,7 +62,7 @@ const PLACEHOLDERS = [
   "images/solar.webp",
   "images/srflames.webp",
   "images/delmon.webp",
-  "images/zain.webp"
+
 ];
 
 /* ─── Infinite CSS-animated marquee (NEVER stops on scroll) ─── */
