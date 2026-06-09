@@ -54,16 +54,7 @@ const TypewriterWord = ({ word }: { word: any }) => (
 );
 
 /* ─── Placeholder images ─── */
-const PLACEHOLDERS = [
-  "images/adem.webp",
-  "images/daps.webp",
-  "images/nicetool.webp",
-  "images/atom.webp",
-  "images/solar.webp",
-  "images/srflames.webp",
-  "images/delmon.webp",
 
-];
 
 /* ─── Infinite CSS-animated marquee (NEVER stops on scroll) ─── */
 const Marquee = ({ images }: { images: string[] }) => {
@@ -80,17 +71,7 @@ const Marquee = ({ images }: { images: string[] }) => {
         style={{ background: "linear-gradient(to left, #090412, transparent)" }} />
 
       {/* Inject keyframe — pure CSS, runs on compositor, scroll never interrupts it */}
-      <style>{`
-        @keyframes hero-marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .hero-marquee-track {
-          display: flex;
-          animation: hero-marquee 25s linear infinite;
-          will-change: transform;
-        }
-      `}</style>
+
 
       <div className="hero-marquee-track">
         {items.map((src, i) => (
@@ -167,12 +148,12 @@ export const HeroSection = () => {
       </div>
 
       {/* ── Hero text ── */}
-      <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center ">
         <motion.h1
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100 leading-[1.15] mb-6 max-w-3xl"        >
+          className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100 leading-[1.15] mb-6 max-w-3xl mt-16"        >
           {headingWords.map((word, i) => {
             if (word.typewriter) return <TypewriterWord key={i} word={word} />;
             return (
@@ -210,14 +191,7 @@ export const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* ── Single continuous image strip (train effect) ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.8 }}
-        className="relative z-20 w-full mt-28 md:mt-16"      >
-        <Marquee images={PLACEHOLDERS} />
-      </motion.div>
+
     </section>
   );
 };

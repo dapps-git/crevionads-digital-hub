@@ -4,7 +4,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="relative bg-[#090412] pt-12 pb-6 overflow-hidden font-body">
+    <footer id="footer" className="relative bg-[#090412] pt-12 pb-6 overflow-hidden font-body">
       {/* Background Image Setup */}
       <div
         className="absolute inset-0 opacity-60 mix-blend-screen pointer-events-none"
