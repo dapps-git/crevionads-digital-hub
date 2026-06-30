@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Volume2, VolumeX } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-
+import busImage from "../assets/bus.jpeg"; // Adjust the path if needed
 export const ProblemSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
@@ -162,8 +162,8 @@ export const ProblemSection = () => {
               {/* Horizontal Image */}
               <div className="w-full flex-grow max-w-lg h-48 sm:h-56 rounded-[2rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(52,31,96,0.3)] bg-slate-100">
                 <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"
-                  alt="Tech Solutions Analytics"
+                  src={busImage}
+                  alt="Business"
                   className="w-full h-full object-cover"
                 />
               </div>
