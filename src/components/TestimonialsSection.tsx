@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTestimonials } from "@/lib/api";
 import { motion, useInView } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 
 interface Testimonial {
   _id: string;
@@ -72,18 +72,6 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-const StarRating = ({ rating }: { rating: number }) => (
-  <div className="flex gap-0.5">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <Star
-        key={i}
-        size={14}
-        className={i < rating ? "fill-amber-400 text-amber-400" : "text-zinc-700"}
-      />
-    ))}
-  </div>
-);
-
 const AvatarInitials = ({ name }: { name: string }) => {
   const initials = name
     .split(" ")
@@ -92,7 +80,7 @@ const AvatarInitials = ({ name }: { name: string }) => {
     .toUpperCase()
     .slice(0, 2);
   return (
-    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-800 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-600 via-purple-700 to-pink-600 flex items-center justify-center text-white font-bold text-base flex-shrink-0 border-2 border-white/10 shadow-lg group-hover:scale-105 group-hover:border-violet-500/30 transition-all duration-300">
       {initials}
     </div>
   );
@@ -100,39 +88,39 @@ const AvatarInitials = ({ name }: { name: string }) => {
 
 const TestimonialCard = ({ t }: { t: Testimonial }) => (
   <div
-    className="relative flex-shrink-0 w-[340px] md:w-[380px] bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 mx-3 flex flex-col gap-4 backdrop-blur-sm hover:bg-white/[0.07] hover:border-white/[0.14] transition-all duration-300 group"
+    className="relative flex-shrink-0 w-[350px] md:w-[400px] bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/[0.08] rounded-3xl p-7 mx-4 flex flex-col gap-5 backdrop-blur-sm hover:from-white/[0.08] hover:to-white/[0.02] hover:border-violet-500/30 transition-all duration-300 shadow-xl hover:shadow-[0_20px_45px_-10px_rgba(139,92,246,0.15)] group"
     style={{ willChange: "transform" }}
   >
     {/* Quote icon */}
-    <div className="absolute top-5 right-5 text-violet-500/20 group-hover:text-violet-500/40 transition-colors">
-      <Quote size={32} fill="currentColor" />
+    <div className="absolute top-6 right-6 text-violet-500/10 group-hover:text-violet-500/25 group-hover:scale-110 transition-all duration-300">
+      <Quote size={36} fill="currentColor" />
     </div>
 
-    <StarRating rating={t.rating} />
 
-    <p className="text-zinc-300 text-sm leading-relaxed line-clamp-4 flex-grow">
+    <p className="text-zinc-300/90 group-hover:text-zinc-200 text-[0.93rem] leading-relaxed line-clamp-4 flex-grow italic font-medium transition-colors duration-300">
       "{t.quote}"
     </p>
 
-    <div className="flex items-center gap-3 pt-2 border-t border-white/[0.06]">
+    <div className="flex items-center gap-4 pt-3.5 border-t border-white/[0.06]">
       {t.image ? (
         <img
           src={t.image}
           alt={t.name}
-          className="w-12 h-12 rounded-full object-cover flex-shrink-0 border border-white/10"
+          className="w-16 h-16 rounded-full object-cover flex-shrink-0 border-2 border-violet-500/20 group-hover:border-violet-500/50 group-hover:scale-105 shadow-lg transition-all duration-300"
         />
       ) : (
         <AvatarInitials name={t.name} />
       )}
       <div>
-        <p className="text-zinc-100 font-semibold text-sm">{t.name}</p>
-        <p className="text-zinc-500 text-xs">
-          {t.role} · {t.company}
+        <p className="text-zinc-100 font-bold text-base tracking-wide group-hover:text-violet-300 transition-colors duration-300">{t.name}</p>
+        <p className="text-zinc-400 font-medium text-xs mt-0.5">
+          {t.role} <span className="text-violet-500/60 font-bold mx-1">•</span> {t.company}
         </p>
       </div>
     </div>
   </div>
 );
+
 
 // Infinite auto-scrolling track (inspired by crevion-ads marquee animation)
 const ScrollingTrack = ({
