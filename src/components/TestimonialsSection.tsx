@@ -80,7 +80,7 @@ const AvatarInitials = ({ name }: { name: string }) => {
     .toUpperCase()
     .slice(0, 2);
   return (
-    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-600 via-purple-700 to-pink-600 flex items-center justify-center text-white font-bold text-base flex-shrink-0 border-2 border-white/10 shadow-lg group-hover:scale-105 group-hover:border-violet-500/30 transition-all duration-300">
+    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-violet-600 via-purple-700 to-pink-600 flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0 border-2 border-white/10 shadow-lg group-hover:scale-105 group-hover:border-violet-500/30 transition-all duration-300">
       {initials}
     </div>
   );
@@ -88,38 +88,38 @@ const AvatarInitials = ({ name }: { name: string }) => {
 
 const TestimonialCard = ({ t }: { t: Testimonial }) => (
   <div
-    className="relative flex-shrink-0 w-[350px] md:w-[400px] bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/[0.08] rounded-3xl p-7 mx-4 flex flex-col gap-5 backdrop-blur-sm hover:from-white/[0.08] hover:to-white/[0.02] hover:border-violet-500/30 transition-all duration-300 shadow-xl hover:shadow-[0_20px_45px_-10px_rgba(139,92,246,0.15)] group"
+    className="relative flex-shrink-0 w-[290px] sm:w-[350px] md:w-[400px] bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/[0.08] rounded-3xl p-5 sm:p-7 mx-3 sm:mx-4 flex flex-col gap-4 sm:gap-5 backdrop-blur-sm hover:from-white/[0.08] hover:to-white/[0.02] hover:border-violet-500/30 transition-all duration-300 shadow-xl hover:shadow-[0_20px_45px_-10px_rgba(139,92,246,0.15)] group"
     style={{ willChange: "transform" }}
   >
     {/* Quote icon */}
-    <div className="absolute top-6 right-6 text-violet-500/10 group-hover:text-violet-500/25 group-hover:scale-110 transition-all duration-300">
-      <Quote size={36} fill="currentColor" />
+    <div className="absolute top-5 right-5 text-violet-500/10 group-hover:text-violet-500/25 group-hover:scale-110 transition-all duration-300">
+      <Quote size={28} fill="currentColor" />
     </div>
 
-
-    <p className="text-zinc-300/90 group-hover:text-zinc-200 text-[0.93rem] leading-relaxed line-clamp-4 flex-grow italic font-medium transition-colors duration-300">
+    <p className="text-zinc-300/90 group-hover:text-zinc-200 text-xs sm:text-[0.875rem] leading-relaxed line-clamp-5 flex-grow font-normal transition-colors duration-300">
       "{t.quote}"
     </p>
 
-    <div className="flex items-center gap-4 pt-3.5 border-t border-white/[0.06]">
+    <div className="flex items-center gap-3 sm:gap-4 pt-3.5 border-t border-white/[0.06]">
       {t.image ? (
         <img
           src={t.image}
           alt={t.name}
-          className="w-16 h-16 rounded-full object-cover flex-shrink-0 border-2 border-violet-500/20 group-hover:border-violet-500/50 group-hover:scale-105 shadow-lg transition-all duration-300"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0 border-2 border-violet-500/20 group-hover:border-violet-500/50 group-hover:scale-105 shadow-lg transition-all duration-300"
         />
       ) : (
         <AvatarInitials name={t.name} />
       )}
       <div>
-        <p className="text-zinc-100 font-bold text-base tracking-wide group-hover:text-violet-300 transition-colors duration-300">{t.name}</p>
-        <p className="text-zinc-400 font-medium text-xs mt-0.5">
+        <p className="text-zinc-100 font-bold text-sm sm:text-base tracking-wide group-hover:text-violet-300 transition-colors duration-300">{t.name}</p>
+        <p className="text-zinc-400 font-medium text-[10px] sm:text-xs mt-0.5">
           {t.role} <span className="text-violet-500/60 font-bold mx-1">•</span> {t.company}
         </p>
       </div>
     </div>
   </div>
 );
+
 
 
 // Infinite auto-scrolling track (inspired by crevion-ads marquee animation)
