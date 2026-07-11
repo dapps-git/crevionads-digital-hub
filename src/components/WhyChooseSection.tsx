@@ -82,13 +82,13 @@ export const WhyChooseSection = () => {
             </motion.div>
 
             <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.2] mb-6 tracking-tight">
-              {["Why", "Choose", "CREVIONAds", "?"].map((word, index) => (
+              {["Why", "Choose", "Crevionads ?"].map((word, index) => (
                 <motion.span
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
-                  className={`inline-block mr-2 sm:mr-2.5 ${word === "CREVIONAds" || word === "?"
+                  className={`inline-block mr-2 sm:mr-2.5 ${word === "Crevionads ?"
                     ? "bg-gradient-to-r from-[#F4CE45] via-[#A888E0] to-[#694CD0] bg-clip-text text-transparent"
                     : "text-white"
                     }`}
