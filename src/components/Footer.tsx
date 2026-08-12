@@ -71,7 +71,10 @@ export const Footer = () => {
                 </div>
                 <div>
                   <p className="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-0.5">Location</p>
-                  <p className="text-zinc-200 text-sm font-medium hover:text-[#F4CE45] transition-colors">V3QC+WQ Valanchery, Kerala, India</p>
+                  <p className="text-zinc-200 text-sm font-medium hover:text-[#F4CE45] transition-colors leading-snug">
+                    1st Floor, KPM Arcade, Calicut Rd, Valanchery, Kerala 676552
+                  </p>
+                  <p className="text-zinc-500 text-[11px] font-normal mt-0.5">Plus Code: V3QC+VP</p>
                 </div>
               </div>
 
@@ -288,24 +291,35 @@ export const Footer = () => {
             {/* Modal Header */}
             <div className="flex justify-between items-center px-5 py-4 border-b border-white/5 bg-white/5">
               <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <MapPin size={14} className="text-amber-400" />
-                CrevionAds Office Location
+                <MapPin size={14} className="text-amber-400 flex-shrink-0" />
+                <span>CrevionAds Office (KPM Arcade, Valanchery)</span>
               </span>
-              <button 
-                onClick={() => setShowMap(false)}
-                className="text-zinc-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wider border border-white/10 hover:border-white/20 rounded-md px-2.5 py-1 bg-white/5"
-              >
-                Close
-              </button>
+              <div className="flex items-center gap-2">
+                <a 
+                  href="https://www.google.com/maps/place/Crevion+ads/@10.8897471,76.0622695,15z" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-amber-400 hover:text-amber-300 transition-colors text-xs font-bold uppercase tracking-wider border border-amber-400/20 hover:border-amber-400/40 rounded-md px-2.5 py-1 bg-amber-400/10"
+                >
+                  Open Maps ↗
+                </a>
+                <button 
+                  onClick={() => setShowMap(false)}
+                  className="text-zinc-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wider border border-white/10 hover:border-white/20 rounded-md px-2.5 py-1 bg-white/5"
+                >
+                  Close
+                </button>
+              </div>
             </div>
             {/* Embedded Google Map */}
             <div className="aspect-[16/10] w-full">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.4926616783399!2d76.07108506459656!3d10.889835268882038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7b70002de3c2f%3A0xc5e0646e1b97ce32!2sAtom%20Institute%20of%20Science%20Valanchery%20%7C%20Entrance%20Coaching!5e0!3m2!1sen!2sin!4v1782815644631!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7835.943613249726!2d76.06226949357908!3d10.8897471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7b78e229683c3%3A0x88e1cb4c8d402fb0!2sCrevion%20ads!5e0!3m2!1sen!2sin!4v1786528575768!5m2!1sen!2sin" 
                 className="w-full h-full border-0" 
                 allowFullScreen 
                 loading="lazy" 
                 referrerPolicy="strict-origin-when-cross-origin"
+                title="Crevion Ads Office Map"
               />
             </div>
           </div>
