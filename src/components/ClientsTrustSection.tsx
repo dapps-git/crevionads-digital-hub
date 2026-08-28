@@ -81,21 +81,32 @@ export const ClientsTrustSection = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6 md:gap-8 items-center justify-items-center"
         >
-          {logos.map((logo, index) => (
-            <motion.div
-              key={index}
-              variants={logoVariants}
-              whileHover={{ scale: 1.08 }}
-              className="w-full h-10 sm:h-16 md:h-20 flex items-center justify-center transition-all duration-300 group"
-            >
-              <img
-                src={logo.url}
-                alt={logo.filename.replace(/[-_]removebg[-_]preview|[-_]/g, " ").replace(/\.[^/.]+$/, "")}
-                className="max-w-[95%] max-h-full object-contain filter group-hover:brightness-105 transition-all duration-300"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
+          {logos.map((logo, index) => {
+            const isAquaPool = logo.filename.toLowerCase().includes("aquapool");
+            const isWesternBakery = logo.filename.toLowerCase().includes("western");
+
+            return (
+              <motion.div
+                key={index}
+                variants={logoVariants}
+                whileHover={{ scale: isAquaPool ? 1.35 : 1.08 }}
+                className="w-full h-10 sm:h-16 md:h-20 flex items-center justify-center transition-all duration-300 group"
+              >
+                <img
+                  src={logo.url}
+                  alt={logo.filename.replace(/[-_]removebg[-_]preview|[-_]/g, " ").replace(/\.[^/.]+$/, "")}
+                  className={`${
+                    isAquaPool
+                      ? "max-w-[135%] max-h-[135%] scale-125 sm:scale-135"
+                      : isWesternBakery
+                      ? "max-w-[80%] max-h-[80%] scale-90 sm:scale-90"
+                      : "max-w-[95%] max-h-full"
+                  } object-contain filter group-hover:brightness-105 transition-all duration-300`}
+                  loading="lazy"
+                />
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
