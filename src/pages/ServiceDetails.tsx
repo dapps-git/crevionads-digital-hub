@@ -331,7 +331,11 @@ const ServiceDetails = () => {
 
   return (
     <div className="min-h-screen bg-background pt-24 overflow-x-hidden font-sans">
-      <SEO title={seoTitle} description={seoDesc} />
+      <SEO 
+        title={seoTitle} 
+        description={seoDesc} 
+        canonical={`https://www.crevionads.com/services/${serviceSlug}`} 
+      />
       <Navbar />
 
       {/* --- HERO SECTION --- */}
