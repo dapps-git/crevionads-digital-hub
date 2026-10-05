@@ -1,6 +1,6 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL;
 const fallbackApiUrl = import.meta.env.PROD
-  ? 'https://crevionads-backend.onrender.com/api'
+  ? 'https://tweaki.pw/api'
   : 'http://localhost:5002/api';
 
 const rawApiUrl = (configuredApiUrl || fallbackApiUrl).replace(/\/$/, '');
