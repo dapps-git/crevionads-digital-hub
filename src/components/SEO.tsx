@@ -6,14 +6,16 @@ interface SEOProps {
   description: string;
   name?: string;
   type?: string;
+  canonical?: string;
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, name = "CrevionAds", type = "website" }) => {
+export const SEO: React.FC<SEOProps> = ({ title, description, name = "CrevionAds", type = "website", canonical }) => {
   return (
     <Helmet>
       {/* Standard metadata tags */}
       <title>{title}</title>
       <meta name='description' content={description} />
+      {canonical && <link rel="canonical" href={canonical} />}
       {/* End standard metadata tags */}
       
       {/* Facebook tags */}

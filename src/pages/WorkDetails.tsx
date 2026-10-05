@@ -48,6 +48,7 @@ const WorkDetails = () => {
       <SEO
         title={`${work.title} - Work Portfolio | CrevionAds`}
         description={work.description || `View details of ${work.title} created by CrevionAds`}
+        canonical={`https://www.crevionads.com/work/${workId}`}
       />
       <Navbar />
 

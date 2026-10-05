@@ -49,7 +49,11 @@ const BlogDetails = () => {
 
   return (
     <div className="min-h-screen bg-background pt-24 font-sans">
-      <SEO title={`${blog.title} | CrevionAds Blog`} description={stripHtml(blog.content).substring(0, 160)} />
+      <SEO 
+        title={`${blog.title} | CrevionAds Blog`} 
+        description={stripHtml(blog.content).substring(0, 160)} 
+        canonical={`https://www.crevionads.com/blog/${blogSlug}`}
+      />
             <Navbar />
 
             {/* Hero Banner */}

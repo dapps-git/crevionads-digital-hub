@@ -18,6 +18,7 @@ const Index = () => {
       <SEO
         title="Leading Web & AI Development Agency in Kerala, India | CrevionAds"
         description="CrevionAds is the premier digital marketing, AI app development, and Web Design agency mainly focusing in India, Kerala. We build performance-driven solutions."
+        canonical="https://www.crevionads.com/"
       />
       <Navbar />
       <HeroSection />
